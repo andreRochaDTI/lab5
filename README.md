@@ -28,4 +28,4 @@ O público-alvo do aplicativo são dois tipos de usuários: administradores de e
 
 - Gerenciamento de QR Codes pelos administradores: os administradores poderão visualizar e gerenciar os QR Codes cadastrados, podendo editá-los ou excluí-los.
 
-- Notificações sobre eventos: os usuários finais poderão receber notificações sobre eventos próximos ou que estejam acontecendo, baseado nas preferencias do usuário.p
+- Notificações sobre eventos: os usuários finais poderão receber notificações sobre eventos próximos ou que estejam acontecendo, baseado nas preferencias do usuário.
