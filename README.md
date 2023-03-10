@@ -1,8 +1,11 @@
 # 1) Nome do Projeto
-
+E-vento
 # 2) Componentes do Time
+André Silva Maurício da Rocha - Desenvolvedor Front-end <br>
+Augusto Coutinho de Freitas - Quality Analyst <br>
+Kesley Alexsandro Vieira Severino - Gerente de projetos <br>
+Márcio Lucas Machado Pereira - Desenvolvedor Back-end <br>
 
-Nome dos componentes e função dentro do time
 # 3) Link para o Github
 https://github.com/andreRochaDTI/lab5
 
