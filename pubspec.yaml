@@ -78,6 +78,7 @@ flutter:
     - assets/page-2/images/image-5.png
     - assets/page-2/images/image-3.png
     - assets/page-2/images/image-2.png
+    - assets/page-2/images/menu-navigation.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

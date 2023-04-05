@@ -10,17 +10,38 @@ class EventList extends StatelessWidget {
     double baseWidth = 414;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
-    return SizedBox(
-      width: double.infinity,
-      child: Container(
+    return Scaffold(
+      body: Container(
         width: double.infinity,
         decoration: const BoxDecoration(
           color: Color(0xfff6f5f5),
         ),
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            //crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Container(
+                margin:
+                    EdgeInsets.fromLTRB(0 * fem, 30 * fem, 350 * fem, 0 * fem),
+                width: 40 * fem,
+                height: 40 * fem,
+                child: Image.asset(
+                  'assets/page-2/images/menu-navigation.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Text(
+                'Bem Vindo ',
+                textAlign: TextAlign.center,
+                style: SafeGoogleFont(
+                  'Montserrat',
+                  fontSize: 30 * ffem,
+                  fontWeight: FontWeight.w700,
+                  height: 1.7951389949 * ffem / fem,
+                  letterSpacing: -0.8029167056 * fem,
+                  color: const Color(0xff9586a8),
+                ),
+              ),
               Container(
                 padding:
                     EdgeInsets.fromLTRB(0 * fem, 16 * fem, 0 * fem, 8 * fem),
@@ -37,100 +58,61 @@ class EventList extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                margin: EdgeInsets.fromLTRB(
-                                    0 * fem, 0 * fem, 0 * fem, 20 * fem),
-                                width: 6 * fem,
-                                height: 12 * fem,
-                                child: Image.asset(
-                                  'assets/page-2/images/vector.png',
-                                  width: 6 * fem,
-                                  height: 12 * fem,
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.fromLTRB(
-                                    32 * fem, 0 * fem, 0 * fem, 0 * fem),
-                                padding: EdgeInsets.fromLTRB(21.06 * fem,
-                                    9 * fem, 125.78 * fem, 5 * fem),
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: const Color(0xffd8d0e3)),
-                                  color: const Color(0xffffffff),
-                                  borderRadius: BorderRadius.circular(
-                                      27.0000038147 * fem),
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.fromLTRB(
-                                          0 * fem, 0 * fem, 16 * fem, 4 * fem),
-                                      width: 15.16 * fem,
-                                      height: 13.5 * fem,
-                                      child: Image.asset(
-                                        'assets/page-2/images/icon-search.png',
-                                        width: 15.16 * fem,
-                                        height: 13.5 * fem,
-                                      ),
+                              ListView(
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(7.0),
+                                    child: TextField(
+                                      onChanged: (text) {},
+                                      decoration: const InputDecoration(
+                                          labelText: "Buscar eventos",
+                                          hintText: "Informe o nome do evento",
+                                          prefixIcon: Icon(Icons.search),
+                                          border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(25.0)))),
                                     ),
-                                    Text(
-                                      'Procurar eventos\n',
-                                      style: SafeGoogleFont(
-                                        'Montserrat',
-                                        fontSize: 17 * ffem,
-                                        fontWeight: FontWeight.w400,
-                                        height: 1.2941176471 * ffem / fem,
-                                        letterSpacing: -0.4099999964 * fem,
-                                        color: const Color(0xff9586a8),
-                                      ),
+                                  ),
+                                  const Divider(),
+                                  SizedBox(
+                                    width: double.infinity,
+                                    height: 34 * fem,
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Esses são os seus eventos: ',
+                                          textAlign: TextAlign.center,
+                                          style: SafeGoogleFont(
+                                            'Montserrat',
+                                            fontSize: 25 * ffem,
+                                            fontWeight: FontWeight.w400,
+                                            height: 1.7951389949 * ffem / fem,
+                                            letterSpacing: -0.8029167056 * fem,
+                                            color: const Color(0xff9586a8),
+                                          ),
+                                        ),
+                                        Text(
+                                          '(4)',
+                                          style: SafeGoogleFont(
+                                            'Montserrat',
+                                            fontSize: 30 * ffem,
+                                            fontWeight: FontWeight.w700,
+                                            height: 1.3463542461 * ffem / fem,
+                                            letterSpacing: -0.8029167056 * fem,
+                                            color: const Color(0xff2d0c57),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.fromLTRB(
-                            0 * fem, 0 * fem, 1 * fem, 0 * fem),
-                        padding: EdgeInsets.fromLTRB(
-                            29.26 * fem, 0 * fem, 42 * fem, 0 * fem),
-                        width: double.infinity,
-                        height: 29 * fem,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.fromLTRB(
-                                  0 * fem, 0 * fem, 3.74 * fem, 0 * fem),
-                              child: Text(
-                                'Esses são os seus eventos: ',
-                                textAlign: TextAlign.center,
-                                style: SafeGoogleFont(
-                                  'Montserrat',
-                                  fontSize: 24 * ffem,
-                                  fontWeight: FontWeight.w400,
-                                  height: 1.7951389949 * ffem / fem,
-                                  letterSpacing: -0.8029167056 * fem,
-                                  color: const Color(0xff9586a8),
-                                ),
-                              ),
-                            ),
-                            Text(
-                              '(4)',
-                              style: SafeGoogleFont(
-                                'Montserrat',
-                                fontSize: 32 * ffem,
-                                fontWeight: FontWeight.w700,
-                                height: 1.3463542461 * ffem / fem,
-                                letterSpacing: -0.8029167056 * fem,
-                                color: const Color(0xff2d0c57),
-                              ),
-                            ),
-                          ],
                         ),
                       ),
                     ],

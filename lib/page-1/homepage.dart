@@ -3,6 +3,8 @@ import 'package:myapp/utils.dart' show SafeGoogleFont;
 import 'package:myapp/page-1/login.dart';
 import 'package:myapp/page-1/register.dart';
 
+import 'about-us.dart';
+
 class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,8 @@ class Homepage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                margin: EdgeInsets.fromLTRB(1 * fem, 0 * fem, 0 * fem, 107 * fem),
+                margin:
+                    EdgeInsets.fromLTRB(1 * fem, 0 * fem, 0 * fem, 107 * fem),
                 width: 63 * fem,
                 height: 63 * fem,
                 child: Image.asset(
@@ -40,8 +43,8 @@ class Homepage extends StatelessWidget {
                 ),
               ),
               Container(
-                padding:
-                    EdgeInsets.fromLTRB(11 * fem, 56 * fem, 18 * fem, 100 * fem),
+                padding: EdgeInsets.fromLTRB(
+                    11 * fem, 56 * fem, 18 * fem, 100 * fem),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: const Color(0xfff6f5f5),
@@ -89,18 +92,16 @@ class Homepage extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.fromLTRB(
-                            11 * fem, 0 * fem, 0 * fem, 86 * fem),
-                        width: 374 * fem,
-                        height: 56 * fem,
                         decoration: BoxDecoration(
                           color: const Color(0xff0bce83),
                           borderRadius: BorderRadius.circular(8 * fem),
                         ),
                         child: TextButton(
                           onPressed: () => {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: ((context) => Login())))
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) => Login())))
                           },
                           child: Center(
                             child: Center(
@@ -127,9 +128,6 @@ class Homepage extends StatelessWidget {
                               MaterialPageRoute(
                                   builder: ((context) => Register())))
                         },
-                        style: TextButton.styleFrom(
-                          padding: EdgeInsets.zero,
-                        ),
                         child: SizedBox(
                           width: double.infinity,
                           height: 18 * fem,
@@ -142,6 +140,32 @@ class Homepage extends StatelessWidget {
                                 fontSize: 15 * ffem,
                                 fontWeight: FontWeight.w700,
                                 height: 1.2 * ffem / fem,
+                                letterSpacing: -0.0099999998 * fem,
+                                color: const Color(0xff9586a8),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () => {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) => About())))
+                        },
+                        child: SizedBox(
+                          width: double.infinity,
+                          height: 18 * fem,
+                          child: Center(
+                            child: Text(
+                              'SOBRE NÓS',
+                              textAlign: TextAlign.center,
+                              style: SafeGoogleFont(
+                                'Montserrat',
+                                fontSize: 10 * ffem,
+                                fontWeight: FontWeight.w700,
+                                height: 1.1 * ffem / fem,
                                 letterSpacing: -0.0099999998 * fem,
                                 color: const Color(0xff9586a8),
                               ),
