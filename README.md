@@ -18,8 +18,6 @@ O aplicativo tem como objetivo ser um gerenciador de QR Code, facilitando o aces
 O público-alvo do aplicativo são dois tipos de usuários: administradores de eventos e usuários finais. Os administradores de eventos são responsáveis por cadastrar os QR Codes referentes aos eventos que desejam divulgar. Já os usuários finais são pessoas que desejam obter informações sobre os eventos que estão acontecendo, lendo o QR Code com o aplicativo.
 
 ## Principais funcionalidades
-- O aplicativo terá as seguintes funcionalidades:
-
 - Cadastro de eventos pelos administradores: os administradores poderão cadastrar eventos e gerar QR Codes para cada um deles.
 
 - Leitura de QR Codes pelos usuários finais: os usuários finais poderão ler os QR Codes dos eventos que desejam obter informações.
