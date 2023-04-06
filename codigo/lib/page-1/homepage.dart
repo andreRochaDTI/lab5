@@ -16,65 +16,23 @@ class Homepage extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.fromLTRB(0 * fem, 142 * fem, 0 * fem, 0 * fem),
         width: double.infinity,
-        decoration: BoxDecoration(
-          border: Border.all(color: const Color(0xff000000)),
-          color: const Color(0xffa259ff),
-          boxShadow: [
-            BoxShadow(
-              color: const Color(0x3f000000),
-              offset: Offset(0 * fem, 4 * fem),
-              blurRadius: 2 * fem,
-            ),
-          ],
-        ),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                margin:
-                    EdgeInsets.fromLTRB(1 * fem, 0 * fem, 0 * fem, 107 * fem),
-                width: 63 * fem,
-                height: 63 * fem,
-                child: Image.asset(
-                  'assets/page-1/images/logo.png',
-                  width: 63 * fem,
-                  height: 63 * fem,
-                ),
+              Image.asset(
+                'assets/page-1/images/logo.png',
+                width: 200 * fem,
+                height: 200 * fem,
               ),
               Container(
                 padding: EdgeInsets.fromLTRB(
                     11 * fem, 56 * fem, 18 * fem, 100 * fem),
                 width: double.infinity,
-                decoration: BoxDecoration(
-                  color: const Color(0xfff6f5f5),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30 * fem),
-                    topRight: Radius.circular(30 * fem),
-                  ),
-                ),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Center(
-                        child: Container(
-                          margin: EdgeInsets.fromLTRB(
-                              11 * fem, 0 * fem, 0 * fem, 48 * fem),
-                          child: Text(
-                            'E-vento',
-                            textAlign: TextAlign.center,
-                            style: SafeGoogleFont(
-                              'Montserrat',
-                              fontSize: 34 * ffem,
-                              fontWeight: FontWeight.w700,
-                              height: 1.2058823529 * ffem / fem,
-                              letterSpacing: 0.4099999964 * fem,
-                              color: const Color(0xff2d0c57),
-                            ),
-                          ),
-                        ),
-                      ),
                       Container(
                         margin: EdgeInsets.fromLTRB(
                             0 * fem, 0 * fem, 11 * fem, 61 * fem),
@@ -146,6 +104,9 @@ class Homepage extends StatelessWidget {
                             ),
                           ),
                         ),
+                      ),
+                      SizedBox(
+                        height: 50,
                       ),
                       TextButton(
                         onPressed: () => {
