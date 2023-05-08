@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/page-1/login.dart';
-
 import '../page-2/event-list.dart';
 import '../utils.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class Register extends StatelessWidget {
+  final databaseReference = FirebaseDatabase.instance.reference();
+
   @override
   Widget build(BuildContext context) {
     double baseWidth = 414;
@@ -144,6 +146,14 @@ class Register extends StatelessWidget {
               height: 90,
               child: TextButton(
                 onPressed: () => {
+                  databaseReference
+                      .child('login')
+                      .child('usuario')
+                      .set('novousuario'),
+                  databaseReference
+                      .child('login')
+                      .child('senha')
+                      .set('novasenha'),
                   Navigator.push(context,
                       MaterialPageRoute(builder: ((context) => Login())))
                 },
