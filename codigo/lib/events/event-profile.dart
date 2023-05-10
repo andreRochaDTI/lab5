@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/page-2/event-list.dart';
+import 'package:myapp/events/homePage.dart';
 import 'package:myapp/page-3/qr-generator.dart';
 import 'package:myapp/utils.dart';
 
@@ -340,10 +340,10 @@ class EventProfile extends StatelessWidget {
                           child: Align(
                             child: TextButton(
                               onPressed: () => {
-                                Navigator.push(
+                                /* Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: ((context) => EventList())))
+                                        builder: ((context) => HomePage())));*/
                               },
                               style: TextButton.styleFrom(
                                 padding: EdgeInsets.zero,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/page-2/event-profile.dart';
+import 'package:myapp/events/event-profile.dart';
 
 class QrCodeGenerator extends StatelessWidget {
   const QrCodeGenerator({super.key});

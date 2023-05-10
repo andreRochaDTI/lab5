@@ -1,16 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/utils.dart' show SafeGoogleFont;
-import 'package:myapp/page-1/login.dart';
-import 'package:myapp/page-1/register.dart';
-
+import 'package:myapp/auth/login.dart';
+import 'package:myapp/auth/signUp.dart';
+import '../events/homepage.dart';
 import 'about-us.dart';
 
-class Homepage extends StatelessWidget {
+class Homescreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double baseWidth = 414;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
+
     return SizedBox(
       width: double.infinity,
       child: Container(
@@ -45,21 +47,31 @@ class Homepage extends StatelessWidget {
                             fontWeight: FontWeight.w400,
                             height: 1.5 * ffem / fem,
                             letterSpacing: -0.4099999964 * fem,
-                            color: const Color(0xff9586a8),
+                            color: Colors.purple,
                           ),
                         ),
                       ),
                       Container(
                         decoration: BoxDecoration(
-                          color: const Color(0xff0bce83),
-                          borderRadius: BorderRadius.circular(8 * fem),
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(12 * fem),
                         ),
                         child: TextButton(
                           onPressed: () => {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: ((context) => Login())))
+                            if (FirebaseAuth.instance.currentUser != null)
+                              {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: ((context) => HomePage())))
+                              }
+                            else
+                              {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: ((context) => Login())))
+                              }
                           },
                           child: Center(
                             child: Center(
@@ -84,7 +96,7 @@ class Homepage extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: ((context) => Register())))
+                                  builder: ((context) => SignUp())))
                         },
                         child: SizedBox(
                           width: double.infinity,
@@ -99,13 +111,13 @@ class Homepage extends StatelessWidget {
                                 fontWeight: FontWeight.w700,
                                 height: 1.2 * ffem / fem,
                                 letterSpacing: -0.0099999998 * fem,
-                                color: const Color(0xff9586a8),
+                                color: Colors.purple,
                               ),
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 50,
                       ),
                       TextButton(
@@ -117,18 +129,18 @@ class Homepage extends StatelessWidget {
                         },
                         child: SizedBox(
                           width: double.infinity,
-                          height: 18 * fem,
+                          height: 30 * fem,
                           child: Center(
                             child: Text(
                               'SOBRE NÓS',
                               textAlign: TextAlign.center,
                               style: SafeGoogleFont(
                                 'Montserrat',
-                                fontSize: 10 * ffem,
+                                fontSize: 12 * ffem,
                                 fontWeight: FontWeight.w700,
                                 height: 1.1 * ffem / fem,
                                 letterSpacing: -0.0099999998 * fem,
-                                color: const Color(0xff9586a8),
+                                color: Colors.purple,
                               ),
                             ),
                           ),
