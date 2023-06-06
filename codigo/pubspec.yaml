@@ -45,6 +45,12 @@ dependencies:
   firebase_storage: ^11.1.2
   image_picker: ^0.8.7+4
   cached_network_image: ^3.2.3
+  flutter_date_picker: ^0.1.8
+  flutter_time_picker_spinner: ^2.0.0
+  flutter_datetime_picker: ^1.5.1
+  qr_code_scanner: ^1.0.0
+  page_transition: ^2.0.9
+
 
 
 dev_dependencies:

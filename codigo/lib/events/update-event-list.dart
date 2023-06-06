@@ -1,8 +1,12 @@
 import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:intl/intl.dart';
+import 'package:myapp/events/homepage.dart';
 
 class UpdateEvent extends StatefulWidget {
   final String id;
@@ -10,16 +14,18 @@ class UpdateEvent extends StatefulWidget {
   UpdateEvent({required this.id});
 
   @override
-  _UpdatdeEventState createState() => _UpdatdeEventState();
+  _UpdateEventState createState() => _UpdateEventState();
 }
 
-class _UpdatdeEventState extends State<UpdateEvent> {
+class _UpdateEventState extends State<UpdateEvent> {
   File? _imageFile;
   bool _uploading = false;
   bool _imageSelected = false;
 
   final _nameController = TextEditingController();
   final _addressController = TextEditingController();
+  final _dateController = TextEditingController();
+  final _timeController = TextEditingController();
 
   Future<void> _uploadImage() async {
     setState(() {
@@ -43,6 +49,8 @@ class _UpdatdeEventState extends State<UpdateEvent> {
         'name': _nameController.text,
         'address': _addressController.text,
         'image': imageUrl,
+        'date': _dateController.text,
+        'time': _timeController.text,
       };
       await FirebaseFirestore.instance
           .collection('events')
@@ -51,6 +59,8 @@ class _UpdatdeEventState extends State<UpdateEvent> {
 
       _nameController.clear();
       _addressController.clear();
+      _dateController.clear();
+      _timeController.clear();
       setState(() {
         _imageFile = null;
         _uploading = false;
@@ -135,9 +145,74 @@ class _UpdatdeEventState extends State<UpdateEvent> {
                   labelText: 'Endereço',
                 ),
               ),
+              const SizedBox(height: 16.0),
+              TextField(
+                controller: _dateController,
+                onTap: () {
+                  DatePicker.showDatePicker(
+                    context,
+                    showTitleActions: true,
+                    minTime: DateTime(2000, 1, 1),
+                    maxTime: DateTime(2030, 12, 31),
+                    onChanged: (date) {
+                      // Será chamado quando a data for alterada
+                      _dateController.text =
+                          DateFormat('dd/MM/yyyy').format(date);
+                    },
+                    onConfirm: (date) {
+                      // Será chamado quando a data for confirmada
+                      _dateController.text =
+                          DateFormat('dd/MM/yyyy').format(date);
+                    },
+                    currentTime: DateTime.now(),
+                    locale: LocaleType
+                        .pt, // Defina o idioma para português, se necessário
+                  );
+                },
+                decoration: const InputDecoration(
+                  labelText: 'Data do evento',
+                ),
+              ),
+              const SizedBox(height: 16.0),
+              TextField(
+                controller: _timeController,
+                onTap: () async {
+                  final TimeOfDay? selectedTime = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.now(),
+                    builder: (BuildContext context, Widget? child) {
+                      return MediaQuery(
+                        data: MediaQuery.of(context)
+                            .copyWith(alwaysUse24HourFormat: true),
+                        child: child!,
+                      );
+                    },
+                  );
+
+                  if (selectedTime != null) {
+                    final formattedTime = DateFormat.Hm().format(DateTime(
+                        2022, 1, 1, selectedTime.hour, selectedTime.minute));
+                    _timeController.text = formattedTime;
+                  }
+                },
+                decoration: const InputDecoration(
+                  labelText: 'Horário do evento',
+                ),
+              ),
               const SizedBox(height: 32.0),
               ElevatedButton(
-                onPressed: _uploading ? null : _uploadImage,
+                onPressed: _uploading
+                    ? null
+                    : () async {
+                        await _uploadImage();
+                        // ignore: use_build_context_synchronously
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomePage(),
+                          ),
+                        );
+                      },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green,
                   shape: RoundedRectangleBorder(

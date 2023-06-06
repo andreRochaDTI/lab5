@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:intl/intl.dart';
 
 class AddEvent extends StatefulWidget {
   @override
@@ -17,6 +19,8 @@ class _AddEventState extends State<AddEvent> {
 
   final _nameController = TextEditingController();
   final _addressController = TextEditingController();
+  final _dateController = TextEditingController();
+  final _timeController = TextEditingController();
 
   Future<void> _uploadImage() async {
     setState(() {
@@ -39,17 +43,22 @@ class _AddEventState extends State<AddEvent> {
       final event = {
         'name': _nameController.text,
         'address': _addressController.text,
+        'date':
+            _dateController.text, // Assuming you want to store date as a string
+        'time':
+            _timeController.text, // Assuming you want to store time as a string
         'image': imageUrl,
       };
       await FirebaseFirestore.instance.collection('events').add(event);
 
       _nameController.clear();
       _addressController.clear();
+      _dateController.clear();
+      _timeController.clear();
       setState(() {
         _imageFile = null;
         _uploading = false;
       });
-      // ignore: use_build_context_synchronously
       Navigator.of(context).pop();
     } catch (e) {
       setState(() {
@@ -93,7 +102,6 @@ class _AddEventState extends State<AddEvent> {
             const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () async {
-                // ignore: deprecated_member_use
                 final pickedFile = await ImagePicker().getImage(
                   source: ImageSource.gallery,
                 );
@@ -135,6 +143,60 @@ class _AddEventState extends State<AddEvent> {
                   return null;
                 }
               },
+            ),
+            const SizedBox(height: 16.0),
+            TextField(
+              controller: _dateController,
+              onTap: () {
+                DatePicker.showDatePicker(
+                  context,
+                  showTitleActions: true,
+                  minTime: DateTime(2000, 1, 1),
+                  maxTime: DateTime(2030, 12, 31),
+                  onChanged: (date) {
+                    // Será chamado quando a data for alterada
+                    _dateController.text =
+                        DateFormat('dd/MM/yyyy').format(date);
+                  },
+                  onConfirm: (date) {
+                    // Será chamado quando a data for confirmada
+                    _dateController.text =
+                        DateFormat('dd/MM/yyyy').format(date);
+                  },
+                  currentTime: DateTime.now(),
+                  locale: LocaleType
+                      .pt, // Defina o idioma para português, se necessário
+                );
+              },
+              decoration: const InputDecoration(
+                labelText: 'Data do evento',
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            TextField(
+              controller: _timeController,
+              onTap: () async {
+                final TimeOfDay? selectedTime = await showTimePicker(
+                  context: context,
+                  initialTime: TimeOfDay.now(),
+                  builder: (BuildContext context, Widget? child) {
+                    return MediaQuery(
+                      data: MediaQuery.of(context)
+                          .copyWith(alwaysUse24HourFormat: true),
+                      child: child!,
+                    );
+                  },
+                );
+
+                if (selectedTime != null) {
+                  final formattedTime = DateFormat.Hm().format(DateTime(
+                      2022, 1, 1, selectedTime.hour, selectedTime.minute));
+                  _timeController.text = formattedTime;
+                }
+              },
+              decoration: const InputDecoration(
+                labelText: 'Horário do evento',
+              ),
             ),
             const SizedBox(height: 16.0),
             ElevatedButton(

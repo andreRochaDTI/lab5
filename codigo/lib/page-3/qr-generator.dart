@@ -1,52 +1,69 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/events/event-profile.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-class QrCodeGenerator extends StatelessWidget {
-  const QrCodeGenerator({super.key});
+class QRCodeScannerPage extends StatefulWidget {
+  @override
+  _QRCodeScannerPageState createState() => _QRCodeScannerPageState();
+}
+
+class _QRCodeScannerPageState extends State<QRCodeScannerPage> {
+  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  QRViewController? controller;
+  bool scanStarted = false;
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
+  }
+
+  void _onQRViewCreated(QRViewController controller) {
+    setState(() {
+      this.controller = controller;
+    });
+    controller.scannedDataStream.listen((scanData) {
+      // Aqui você pode tratar o resultado do scan, por exemplo, exibindo o valor lido
+      print('QR Code lido: ${scanData.code}');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    double baseWidth = 414;
-    double fem = MediaQuery.of(context).size.width / baseWidth;
     return Scaffold(
-      body: SizedBox(
-        width: double.infinity,
-        child: Container(
-          width: double.infinity,
-          decoration: const BoxDecoration(
-            color: Color(0xff000000),
+      appBar: AppBar(
+        title: Text('Leitor de QR Code'),
+      ),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            flex: 4,
+            child: QRView(
+              key: qrKey,
+              onQRViewCreated: _onQRViewCreated,
+            ),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextButton(
-                onPressed: () => {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: ((context) => EventProfile())))
-                },
-                child: Container(
-                  margin:
-                      EdgeInsets.fromLTRB(0 * fem, 40 * fem, 0 * fem, 0 * fem),
-                  width: 20 * fem,
-                  height: 20 * fem,
-                  child: Image.asset(
-                    'assets/page-3/images/vector-white.png',
-                    width: 20 * fem,
-                    height: 20 * fem,
-                  ),
+          Expanded(
+            flex: 1,
+            child: Container(
+              margin: EdgeInsets.all(16),
+              child: Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (scanStarted) {
+                      controller?.resumeCamera();
+                    } else {
+                      controller?.pauseCamera();
+                    }
+                    setState(() {
+                      scanStarted = !scanStarted;
+                    });
+                  },
+                  child: Text(scanStarted ? 'Pausar' : 'Iniciar'),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(
-                    50 * fem, 150 * fem, 50 * fem, 50 * fem),
-                child: Image.asset(
-                  'assets/page-3/images/image-1.png',
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
