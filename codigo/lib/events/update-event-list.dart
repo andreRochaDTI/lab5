@@ -1,12 +1,15 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:intl/intl.dart';
 import 'package:myapp/events/homepage.dart';
+import 'package:http/http.dart' as http;
 
 class UpdateEvent extends StatefulWidget {
   final String id;
@@ -24,6 +27,8 @@ class _UpdateEventState extends State<UpdateEvent> {
 
   final _nameController = TextEditingController();
   final _addressController = TextEditingController();
+  final _numberController = TextEditingController();
+  final _cepController = TextEditingController();
   final _dateController = TextEditingController();
   final _timeController = TextEditingController();
 
@@ -48,6 +53,8 @@ class _UpdateEventState extends State<UpdateEvent> {
       final event = {
         'name': _nameController.text,
         'address': _addressController.text,
+        'number': _numberController.text,
+        'cep': _cepController.text,
         'image': imageUrl,
         'date': _dateController.text,
         'time': _timeController.text,
@@ -59,13 +66,14 @@ class _UpdateEventState extends State<UpdateEvent> {
 
       _nameController.clear();
       _addressController.clear();
+      _numberController.clear();
+      _cepController.clear();
       _dateController.clear();
       _timeController.clear();
       setState(() {
         _imageFile = null;
         _uploading = false;
       });
-      // ignore: use_build_context_synchronously
       Navigator.of(context).pop();
     } catch (e) {
       setState(() {
@@ -76,6 +84,60 @@ class _UpdateEventState extends State<UpdateEvent> {
         builder: (context) => AlertDialog(
           title: const Text('Error'),
           content: Text(e.toString()),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  Future<void> _fetchAddress() async {
+    final cep = _cepController.text.replaceAll('-', '');
+    final url = 'https://viacep.com.br/ws/$cep/json/';
+
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+
+      if (data.containsKey('erro')) {
+        // ignore: use_build_context_synchronously
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Erro'),
+            content: const Text('CEP não encontrado'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      } else {
+        final String address =
+            '${data['logradouro']}, ${data['bairro']}, ${data['localidade']}, ${data['uf']}';
+
+        setState(() {
+          _addressController.text = address;
+        });
+      }
+    } else {
+      // ignore: use_build_context_synchronously
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Erro'),
+          content: const Text('Falha ao buscar o endereço'),
           actions: [
             TextButton(
               onPressed: () {
@@ -103,10 +165,25 @@ class _UpdateEventState extends State<UpdateEvent> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               if (_imageFile != null)
-                Image.file(
-                  _imageFile!,
-                  fit: BoxFit.cover,
-                  height: 200.0,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(30.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.deepPurple.withOpacity(0.7),
+                        width: 5.0,
+                      ),
+                      borderRadius: BorderRadius.circular(40.0),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30.0),
+                      child: Image.file(
+                        _imageFile!,
+                        fit: BoxFit.cover,
+                        height: 200.0,
+                      ),
+                    ),
+                  ),
                 ),
               const SizedBox(height: 16.0),
               ElevatedButton(
@@ -140,33 +217,66 @@ class _UpdateEventState extends State<UpdateEvent> {
               ),
               const SizedBox(height: 16.0),
               TextFormField(
+                controller: _cepController,
+                decoration: InputDecoration(
+                  labelText: 'CEP',
+                  suffixIcon: InkWell(
+                    onTap: _fetchAddress,
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.search,
+                        color: Colors.deepPurple,
+                      ),
+                    ),
+                  ),
+                ),
+                keyboardType:
+                    TextInputType.number, // Define o teclado como numérico
+                inputFormatters: [
+                  FilteringTextInputFormatter
+                      .digitsOnly, // Permite apenas dígitos
+                  LengthLimitingTextInputFormatter(
+                      8), // Limita a 8 caracteres (padrão de CEP no Brasil)
+                ],
+              ),
+              const SizedBox(height: 16.0),
+              TextFormField(
                 controller: _addressController,
                 decoration: const InputDecoration(
-                  labelText: 'Endereço',
+                  labelText: 'Endereço do evento',
+                ),
+                enabled: false,
+              ),
+              const SizedBox(height: 16.0),
+              TextFormField(
+                controller: _numberController,
+                decoration: const InputDecoration(
+                  labelText: 'Número do local',
                 ),
               ),
               const SizedBox(height: 16.0),
               TextField(
                 controller: _dateController,
+                readOnly: true,
                 onTap: () {
                   DatePicker.showDatePicker(
                     context,
                     showTitleActions: true,
-                    minTime: DateTime(2000, 1, 1),
+                    minTime: DateTime.now().add(const Duration(
+                        days:
+                            7)), // Restringe a data mínima para 1 semana à frente
                     maxTime: DateTime(2030, 12, 31),
-                    onChanged: (date) {
-                      // Será chamado quando a data for alterada
-                      _dateController.text =
-                          DateFormat('dd/MM/yyyy').format(date);
-                    },
+                    onChanged: (date) {},
                     onConfirm: (date) {
-                      // Será chamado quando a data for confirmada
-                      _dateController.text =
+                      final formattedDate =
                           DateFormat('dd/MM/yyyy').format(date);
+                      setState(() {
+                        _dateController.text = formattedDate;
+                      });
                     },
                     currentTime: DateTime.now(),
-                    locale: LocaleType
-                        .pt, // Defina o idioma para português, se necessário
+                    locale: LocaleType.pt,
                   );
                 },
                 decoration: const InputDecoration(
@@ -176,24 +286,22 @@ class _UpdateEventState extends State<UpdateEvent> {
               const SizedBox(height: 16.0),
               TextField(
                 controller: _timeController,
-                onTap: () async {
-                  final TimeOfDay? selectedTime = await showTimePicker(
-                    context: context,
-                    initialTime: TimeOfDay.now(),
-                    builder: (BuildContext context, Widget? child) {
-                      return MediaQuery(
-                        data: MediaQuery.of(context)
-                            .copyWith(alwaysUse24HourFormat: true),
-                        child: child!,
-                      );
+                readOnly: true,
+                onTap: () {
+                  DatePicker.showTimePicker(
+                    context,
+                    showTitleActions: true,
+                    showSecondsColumn: false, // Remove a coluna de segundos
+                    onChanged: (time) {},
+                    onConfirm: (time) {
+                      final formattedTime = DateFormat('HH:mm').format(time);
+                      setState(() {
+                        _timeController.text = formattedTime;
+                      });
                     },
+                    currentTime: DateTime.now(),
+                    locale: LocaleType.pt,
                   );
-
-                  if (selectedTime != null) {
-                    final formattedTime = DateFormat.Hm().format(DateTime(
-                        2022, 1, 1, selectedTime.hour, selectedTime.minute));
-                    _timeController.text = formattedTime;
-                  }
                 },
                 decoration: const InputDecoration(
                   labelText: 'Horário do evento',
@@ -205,7 +313,6 @@ class _UpdateEventState extends State<UpdateEvent> {
                     ? null
                     : () async {
                         await _uploadImage();
-                        // ignore: use_build_context_synchronously
                         Navigator.push(
                           context,
                           MaterialPageRoute(

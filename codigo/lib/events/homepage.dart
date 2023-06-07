@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:myapp/auth/login.dart';
 import 'package:myapp/events/addEvent.dart';
 import 'package:myapp/events/listEvents.dart';
-import '../utils.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:myapp/utils.dart';
+
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);

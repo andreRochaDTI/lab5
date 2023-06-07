@@ -4,7 +4,6 @@ import 'package:myapp/auth/forgotPassword.dart';
 import 'package:myapp/auth/signUp.dart';
 import 'package:myapp/events/homepage.dart';
 import 'package:myapp/utils.dart' show SafeGoogleFont;
-import 'package:myapp/services/login.dart';
 
 class Login extends StatefulWidget {
   @override

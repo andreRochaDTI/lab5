@@ -6,7 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:myapp/main.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../utils.dart';
+import 'package:myapp/utils.dart' show SafeGoogleFont;
 
 class ListEvents extends StatefulWidget {
   const ListEvents({Key? key}) : super(key: key);
@@ -78,7 +78,7 @@ class _EventListState extends State<ListEvents> {
                             10 * fem, 16 * fem, 10 * fem, 16 * fem),
                         height: 160 * fem,
                         child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
                               margin: EdgeInsets.fromLTRB(
@@ -105,7 +105,7 @@ class _EventListState extends State<ListEvents> {
                                     0 * fem, 0 * fem, 0 * fem, 15 * fem),
                                 width: 153 * fem,
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
                                       constraints: BoxConstraints(

@@ -29,15 +29,15 @@ class EventProfile extends StatelessWidget {
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasError) {
-          return Text('Erro ao buscar os dados do evento.');
+          return const Text('Erro ao buscar os dados do evento.');
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         }
 
         if (!snapshot.hasData || !snapshot.data!.exists) {
-          return Text('Evento não encontrado.');
+          return const Text('Evento não encontrado.');
         }
 
         Map<String, dynamic> eventData =
@@ -115,21 +115,6 @@ class EventProfile extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      left: 187 * fem,
-                      top: 258 * fem,
-                      child: Align(
-                        child: SizedBox(
-                          width: 40 * fem,
-                          height: 8 * fem,
-                          child: Image.asset(
-                            'assets/page-2/images/dots.png',
-                            width: 40 * fem,
-                            height: 8 * fem,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
                       left: 0 * fem,
                       top: 281 * fem,
                       child: Container(
@@ -159,7 +144,7 @@ class EventProfile extends StatelessWidget {
                                       fontWeight: FontWeight.w700,
                                       height: 1.3666666667 * ffem / fem,
                                       letterSpacing: 0.4099999964 * fem,
-                                      color: const Color(0xff2d0c57),
+                                      color: Colors.deepPurple,
                                     ),
                                   ),
                                 ),
@@ -180,7 +165,7 @@ class EventProfile extends StatelessWidget {
                                       fontWeight: FontWeight.w700,
                                       height: 1 * ffem / fem,
                                       letterSpacing: -0.4099999964 * fem,
-                                      color: const Color(0xff2d0c57),
+                                      color: Colors.deepPurple,
                                     ),
                                   ),
                                 ),
@@ -206,7 +191,7 @@ class EventProfile extends StatelessWidget {
                                           fontWeight: FontWeight.w700,
                                           height: 1 * ffem / fem,
                                           letterSpacing: -0.4099999964 * fem,
-                                          color: const Color(0xff2d0c57),
+                                          color: Colors.deepPurple,
                                         ),
                                       ),
                                     ),
@@ -258,15 +243,14 @@ class EventProfile extends StatelessWidget {
                                       margin: EdgeInsets.fromLTRB(
                                           0 * fem, 0 * fem, 207 * fem, 0 * fem),
                                       child: Text(
-                                        'Data',
+                                        'Data:',
                                         style: SafeGoogleFont(
                                           'Montserrat',
-                                          fontSize: 18 * ffem,
-                                          fontWeight: FontWeight.w300,
+                                          fontSize: 22 * ffem,
+                                          fontWeight: FontWeight.w700,
                                           height: 1.2222222222 * ffem / fem,
                                           letterSpacing: -0.4099999964 * fem,
-                                          fontStyle: FontStyle.italic,
-                                          color: const Color(0xff2d0c57),
+                                          color: Colors.deepPurple,
                                         ),
                                       ),
                                     ),
@@ -274,7 +258,7 @@ class EventProfile extends StatelessWidget {
                                       eventData['date'] ?? '',
                                       style: SafeGoogleFont(
                                         'Montserrat',
-                                        fontSize: 16 * ffem,
+                                        fontSize: 20 * ffem,
                                         fontWeight: FontWeight.w500,
                                         height: 1.5 * ffem / fem,
                                         letterSpacing: -0.4099999964 * fem,
@@ -307,15 +291,14 @@ class EventProfile extends StatelessWidget {
                                       margin: EdgeInsets.fromLTRB(
                                           0 * fem, 0 * fem, 186 * fem, 4 * fem),
                                       child: Text(
-                                        'Horário',
+                                        'Horário:',
                                         style: SafeGoogleFont(
                                           'Montserrat',
-                                          fontSize: 18 * ffem,
-                                          fontWeight: FontWeight.w300,
+                                          fontSize: 22 * ffem,
+                                          fontWeight: FontWeight.w700,
                                           height: 1.2222222222 * ffem / fem,
                                           letterSpacing: -0.4099999964 * fem,
-                                          fontStyle: FontStyle.italic,
-                                          color: const Color(0xff2d0c57),
+                                          color: Colors.deepPurple,
                                         ),
                                       ),
                                     ),
@@ -323,7 +306,7 @@ class EventProfile extends StatelessWidget {
                                       eventData['time'] ?? '',
                                       style: SafeGoogleFont(
                                         'Montserrat',
-                                        fontSize: 17 * ffem,
+                                        fontSize: 20 * ffem,
                                         fontWeight: FontWeight.w500,
                                         height: 1.5 * ffem / fem,
                                         letterSpacing: -0.4099999964 * fem,
@@ -345,7 +328,7 @@ class EventProfile extends StatelessWidget {
                                     eventData['address'] ?? '',
                                     style: SafeGoogleFont(
                                       'Montserrat',
-                                      fontSize: 17 * ffem,
+                                      fontSize: 25 * ffem,
                                       fontWeight: FontWeight.w500,
                                       height: 1.5 * ffem / fem,
                                       letterSpacing: -0.4099999964 * fem,
@@ -359,7 +342,7 @@ class EventProfile extends StatelessWidget {
                               left: 29 * fem,
                               top: 234 * fem,
                               child: SizedBox(
-                                width: 104 * fem,
+                                width: 110 * fem,
                                 height: 22 * fem,
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -374,15 +357,14 @@ class EventProfile extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      'Endereço',
+                                      'Endereço:',
                                       style: SafeGoogleFont(
                                         'Montserrat',
-                                        fontSize: 18 * ffem,
-                                        fontWeight: FontWeight.w300,
+                                        fontSize: 22 * ffem,
+                                        fontWeight: FontWeight.w700,
                                         height: 1.2222222222 * ffem / fem,
                                         letterSpacing: -0.4099999964 * fem,
-                                        fontStyle: FontStyle.italic,
-                                        color: const Color(0xff2d0c57),
+                                        color: Colors.deepPurple,
                                       ),
                                     ),
                                   ],
@@ -390,73 +372,94 @@ class EventProfile extends StatelessWidget {
                               ),
                             ),
                             Positioned(
-                              left: 300 * fem,
+                              right: 20 * fem,
                               top: 20 * fem,
                               child: SizedBox(
-                                width: 363 * fem,
-                                height: 26 * fem,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    IconButton(
-                                      icon: const Icon(Icons.edit),
-                                      color: Colors.green,
-                                      iconSize: 30 * ffem,
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => UpdateEvent(
-                                              id: storedocs[indice]['id'],
-                                            ),
+                                width: 36 * fem,
+                                height: 36 * fem,
+                                child: PopupMenuButton<String>(
+                                  icon: const Icon(
+                                    Icons.more_vert,
+                                    color: Colors.deepPurple,
+                                  ),
+                                  onSelected: (value) {
+                                    if (value == 'edit') {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => UpdateEvent(
+                                            id: storedocs[indice]['id'],
                                           ),
-                                        );
-                                      },
+                                        ),
+                                      );
+                                    } else if (value == 'delete') {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: const Text('Deletar evento'),
+                                            content: const Text(
+                                              'Tem certeza que deseja deletar este evento?',
+                                            ),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                child: const Text('Cancelar'),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                              TextButton(
+                                                child: const Text('Deletar'),
+                                                onPressed: () {
+                                                  deletedEvent =
+                                                      storedocs[indice];
+                                                  deleteEvent(
+                                                      storedocs[indice]['id']);
+                                                  storedocs.removeAt(indice);
+                                                  Navigator.of(context).pop();
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          HomePage(),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    }
+                                  },
+                                  itemBuilder: (BuildContext context) => [
+                                    const PopupMenuItem<String>(
+                                      value: 'edit',
+                                      child: ListTile(
+                                        leading: Icon(
+                                          Icons.edit,
+                                          color: Colors.deepPurple,
+                                        ),
+                                        title: Text(
+                                          'Editar',
+                                          style: TextStyle(
+                                            color: Colors.deepPurple,
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                    IconButton(
-                                      icon: const Icon(Icons.delete),
-                                      color: Colors.red,
-                                      iconSize: 30 * ffem,
-                                      onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                              title:
-                                                  const Text('Deletar evento'),
-                                              content: const Text(
-                                                  'Tem certeza que deseja deletar este evento?'),
-                                              actions: <Widget>[
-                                                TextButton(
-                                                  child: const Text('Cancelar'),
-                                                  onPressed: () {
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                ),
-                                                TextButton(
-                                                  child: const Text('Deletar'),
-                                                  onPressed: () {
-                                                    deletedEvent =
-                                                        storedocs[indice];
-                                                    deleteEvent(
-                                                        storedocs[indice]
-                                                            ['id']);
-                                                    storedocs.removeAt(indice);
-                                                    Navigator.of(context).pop();
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            HomePage(),
-                                                      ),
-                                                    );
-                                                  },
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      },
+                                    const PopupMenuItem<String>(
+                                      value: 'delete',
+                                      child: ListTile(
+                                        leading: Icon(
+                                          Icons.delete,
+                                          color: Colors.red,
+                                        ),
+                                        title: Text(
+                                          'Deletar',
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -524,7 +527,7 @@ class EventProfile extends StatelessWidget {
                                 width: 374 * fem,
                                 height: 56 * fem,
                                 decoration: BoxDecoration(
-                                  color: const Color(0xff0acf83),
+                                  color: Colors.deepPurple,
                                   borderRadius: BorderRadius.circular(8 * fem),
                                 ),
                                 child: TextButton(
