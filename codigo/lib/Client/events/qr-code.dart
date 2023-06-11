@@ -8,17 +8,12 @@ class QRCodePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final qrCodeSize = 200.0;
     return Scaffold(
       appBar: AppBar(
         title: Text('QR Code'),
       ),
-      body: Center(
-        child: QrImage(
-          data: qrCodeUrl,
-          version: QrVersions.auto,
-          size: 200.0,
-        ),
-      ),
+      body: Center(child: Container()),
     );
   }
 }

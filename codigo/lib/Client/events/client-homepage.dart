@@ -1,43 +1,26 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/auth/login.dart';
-import 'package:myapp/events/addEvent.dart';
-import 'package:myapp/events/listEvents.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:myapp/page-3/maps.dart';
-import 'package:myapp/profile/profile.dart';
-import 'package:myapp/utils.dart';
+import 'package:myapp/Admin/profile/profile.dart';
+import 'package:myapp/utils/utils.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+import '../../Admin/events/listEvents.dart';
+import '../../utils/maps.dart';
+
+class ClientHomePage extends StatefulWidget {
+  ClientHomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _ClientHomePageState createState() => _ClientHomePageState();
 }
 
 final TextEditingController _searchController = TextEditingController();
 
-class _HomePageState extends State<HomePage> {
+class _ClientHomePageState extends State<ClientHomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AddEvent(),
-            ),
-          );
-        },
-        backgroundColor: Colors.deepPurple,
-        child: const Icon(Icons.add),
-      ),
       bottomNavigationBar: BottomAppBar(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -48,7 +31,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomePage(),
+                    builder: (context) => ClientHomePage(),
                   ),
                 );
               },

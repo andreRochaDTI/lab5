@@ -1,19 +1,18 @@
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:myapp/events/addEvent.dart';
-import 'package:myapp/events/homepage.dart';
+import 'package:myapp/Admin/events/homepage.dart';
+import 'package:myapp/Admin/events/qr-reader.dart';
 import 'package:myapp/events/update-event-list.dart';
-import 'package:myapp/page-3/maps.dart';
-import 'package:myapp/page-3/qr-generator.dart';
-import 'package:myapp/utils.dart';
 
-class EventProfile extends StatelessWidget {
+import '../../utils/maps.dart';
+import '../../utils/utils.dart';
+
+class AdminEventProfile extends StatelessWidget {
   final String id;
   final int indice;
   final List storedocs;
 
-  const EventProfile(
+  const AdminEventProfile(
       {required this.id, required this.indice, required this.storedocs});
 
   @override
@@ -151,9 +150,8 @@ class EventProfile extends StatelessWidget {
                                                         Navigator.push(
                                                           context,
                                                           MaterialPageRoute(
-                                                            builder:
-                                                                (context) =>
-                                                                    HomePage(),
+                                                            builder: (context) =>
+                                                                AdminHomePage(),
                                                           ),
                                                         );
                                                       },
@@ -462,7 +460,7 @@ class EventProfile extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => HomePage(),
+                          builder: (context) => AdminHomePage(),
                         ),
                       );
                     },

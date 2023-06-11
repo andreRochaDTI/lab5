@@ -41,10 +41,8 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage> {
   void validateQRCode(String code) async {
     CollectionReference events =
         FirebaseFirestore.instance.collection('events');
-    QuerySnapshot<Map<String, dynamic>> snapshot = await events
-        .where('qrCode', isEqualTo: code)
-        .limit(1)
-        .get();
+    QuerySnapshot<Object?> snapshot =
+        await events.where('qrCode', isEqualTo: code).limit(1).get();
 
     if (snapshot.docs.isNotEmpty) {
       print('QR Code válido: $code');

@@ -8,8 +8,8 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:intl/intl.dart';
-import 'package:myapp/events/homepage.dart';
 import 'package:http/http.dart' as http;
+import 'package:myapp/Admin/events/homepage.dart';
 
 class UpdateEvent extends StatefulWidget {
   final String id;
@@ -316,7 +316,7 @@ class _UpdateEventState extends State<UpdateEvent> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => HomePage(),
+                            builder: (context) => AdminHomePage(),
                           ),
                         );
                       },

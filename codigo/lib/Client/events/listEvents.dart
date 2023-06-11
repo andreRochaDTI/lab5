@@ -1,10 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:myapp/Client/events/event-profile.dart';
 import 'package:myapp/main.dart';
 import 'package:page_transition/page_transition.dart';
 
-import 'package:myapp/utils.dart' show SafeGoogleFont;
+import 'package:myapp/utils/utils.dart' show SafeGoogleFont;
 
 class ListEvents extends StatefulWidget {
   const ListEvents({Key? key}) : super(key: key);
@@ -61,7 +62,7 @@ class _EventListState extends State<ListEvents> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => EventP(
+                            builder: (context) => ClientEventProfile(
                               id: storedocs[i]['id'],
                               indice: i,
                               storedocs: storedocs,

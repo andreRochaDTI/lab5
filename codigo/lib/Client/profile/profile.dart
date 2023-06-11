@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:myapp/profile/alterarSenha.dart';
+import 'package:myapp/Client/events/client-homepage.dart';
+import 'package:myapp/Admin/profile/alterarSenha.dart';
 
-import '../auth/login.dart';
-import '../events/homepage.dart';
-import '../page-3/maps.dart';
+import '../../auth/login.dart';
+import '../../utils/maps.dart';
 import 'editarPefil.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -224,7 +224,7 @@ class ProfilePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomePage(),
+                    builder: (context) => ClientHomePage(),
                   ),
                 );
               },

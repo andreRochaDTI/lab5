@@ -358,7 +358,7 @@ class _AddEventState extends State<AddEvent> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomePage(),
+                    builder: (context) => AdminHomePage(),
                   ),
                 );
               },

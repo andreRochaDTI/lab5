@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
-import 'package:myapp/utils.dart';
+import 'package:myapp/utils/utils.dart';
 
 class About extends StatelessWidget {
   @override

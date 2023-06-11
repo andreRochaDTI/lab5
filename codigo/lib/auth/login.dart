@@ -3,8 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:myapp/auth/forgotPassword.dart';
 import 'package:myapp/auth/signUp.dart';
-import 'package:myapp/events/homepage.dart';
-import 'package:myapp/utils.dart' show SafeGoogleFont;
+import 'package:myapp/utils/utils.dart';
 
 class Login extends StatefulWidget {
   @override

@@ -1,18 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:myapp/events/homepage.dart';
-import 'package:myapp/page-3/maps.dart';
-import 'package:myapp/page-3/qr-generator.dart';
-import 'package:myapp/utils.dart';
+import 'package:myapp/auth/login.dart';
+import 'package:myapp/Client/events/qr-code.dart';
+import 'dart:io';
+import 'dart:ui' as ui;
 
-class EventProfile extends StatelessWidget {
+import 'package:qr_flutter/qr_flutter.dart';
+
+import '../../utils/maps.dart';
+
+class ClientEventProfile extends StatelessWidget {
   final String id;
   final int indice;
   final List storedocs;
 
-  const EventProfile(
+  const ClientEventProfile(
       {required this.id, required this.indice, required this.storedocs});
+
+  Future<String> generateQRCode(String qrData) async {
+    final qrCode = QrPainter(
+      data: qrData,
+      version: QrVersions.auto,
+      color: const Color(0xff000000),
+      emptyColor: const Color(0xffffffff),
+      errorCorrectionLevel: QrErrorCorrectLevel.L,
+    );
+
+    final qrCodeSize = 200.0;
+    final imageSize = (qrCodeSize * ui.window.devicePixelRatio).round();
+    final image = await qrCode.toImageData(imageSize as double);
+
+    final storageRef =
+        FirebaseStorage.instance.ref().child('qr_codes/$qrData.png');
+    await storageRef.putData(image!.buffer.asUint8List());
+    final qrCodeUrl = await storageRef.getDownloadURL();
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection('qr_codes')
+        .add({'url': qrCodeUrl});
+
+    return qrCodeUrl;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -150,7 +182,7 @@ class EventProfile extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      'Data: ${formatDate(eventData['date'])}',
+                                      eventData['date'],
                                       style: TextStyle(
                                         fontFamily: 'Montserrat',
                                         fontSize: 16,
@@ -228,13 +260,14 @@ class EventProfile extends StatelessWidget {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => LoginPage()),
+                                              builder: (context) => Login()),
                                         );
                                         return;
                                       }
 
                                       // Gerar o código QR
-                                      String qrData = user.uid; // Associar o QR code ao UID do usuário
+                                      String qrData = user
+                                          .uid; // Associar o QR code ao UID do usuário
                                       String qrCodeUrl =
                                           await generateQRCode(qrData);
 

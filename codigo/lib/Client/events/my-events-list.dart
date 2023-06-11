@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:myapp/events/homepage.dart';
-import 'package:myapp/page-3/maps.dart';
-import 'package:myapp/page-3/qr-generator.dart';
-import 'package:myapp/utils.dart';
+import 'package:myapp/Client/events/event-profile.dart';
+import 'package:myapp/auth/login.dart';
 
-class ListEvents extends StatelessWidget {
+class MyEventsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
@@ -15,7 +13,7 @@ class ListEvents extends StatelessWidget {
       // Se o usuário não estiver logado, redirecionar para a tela de login
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => LoginPage()),
+        MaterialPageRoute(builder: (context) => Login()),
       );
       return Container();
     }
@@ -86,7 +84,7 @@ class ListEvents extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => EventProfile(
+                          builder: (context) => ClientEventProfile(
                             id: eventId,
                             indice: index,
                             storedocs: eventIds,

@@ -1,14 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/auth/login.dart';
-import 'package:myapp/events/addEvent.dart';
-import 'package:myapp/events/listEvents.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:myapp/page-3/maps.dart';
-import 'package:myapp/profile/profile.dart';
-import 'package:myapp/utils.dart';
+import 'package:myapp/Admin/events/addEvent.dart';
+import 'package:myapp/Admin/events/listEvents.dart';
+import 'package:myapp/Admin/profile/profile.dart';
+
+import '../../utils/maps.dart';
+import '../../utils/utils.dart';
 
 class AdminHomePage extends StatefulWidget {
   AdminHomePage({Key? key}) : super(key: key);
@@ -156,7 +152,6 @@ class _AdminHomePageState extends State<AdminHomePage> {
                   ),
                 ),
               ),
-              const Divider(),
               const ListEvents(),
             ],
           ),
