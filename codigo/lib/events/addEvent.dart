@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../page-3/maps.dart';
 import '../utils.dart';
 import 'homepage.dart';
 
@@ -26,7 +27,7 @@ class _AddEventState extends State<AddEvent> {
   final _nameController = TextEditingController();
   final _cepController = TextEditingController();
   final _addressController = TextEditingController();
-  final _numberController = TextEditingController();
+  final _adressNumberController = TextEditingController();
   final _dateController = TextEditingController();
   final _timeController = TextEditingController();
 
@@ -84,7 +85,7 @@ class _AddEventState extends State<AddEvent> {
     }
   }
 
-  Future<void> _uploadImage() async {
+  Future<void> _saveEventInformation() async {
     setState(() {
       _uploading = true;
     });
@@ -105,7 +106,7 @@ class _AddEventState extends State<AddEvent> {
       final event = {
         'name': _nameController.text,
         'address': _addressController.text,
-        'number': _numberController.text, // Added number field
+        'addressNumber': _adressNumberController.text,
         'date': _dateController.text,
         'time': _timeController.text,
         'image': imageUrl,
@@ -115,7 +116,7 @@ class _AddEventState extends State<AddEvent> {
       _nameController.clear();
       _cepController.clear();
       _addressController.clear();
-      _numberController.clear();
+      _adressNumberController.clear();
       _dateController.clear();
       _timeController.clear();
       setState(() {
@@ -167,7 +168,7 @@ class _AddEventState extends State<AddEvent> {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              const Icon(
+              Icon(
                 Icons.add,
                 size: 50.0,
                 color: Colors.deepPurple,
@@ -195,12 +196,14 @@ class _AddEventState extends State<AddEvent> {
 
   @override
   Widget build(BuildContext context) {
-    double baseWidth = 414;
-    double fem = MediaQuery.of(context).size.width / baseWidth;
-    double ffem = fem * 0.97;
     return Scaffold(
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.only(
+          top: 50.0,
+          bottom: 16.0,
+          left: 16.0,
+          right: 16.0,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -255,13 +258,10 @@ class _AddEventState extends State<AddEvent> {
                   ),
                 ),
               ),
-              keyboardType:
-                  TextInputType.number, // Define o teclado como numérico
+              keyboardType: TextInputType.number,
               inputFormatters: [
-                FilteringTextInputFormatter
-                    .digitsOnly, // Permite apenas dígitos
-                LengthLimitingTextInputFormatter(
-                    8), // Limita a 8 caracteres (padrão de CEP no Brasil)
+                FilteringTextInputFormatter.digitsOnly,
+                LengthLimitingTextInputFormatter(8),
               ],
             ),
             const SizedBox(height: 16.0),
@@ -274,7 +274,7 @@ class _AddEventState extends State<AddEvent> {
             ),
             const SizedBox(height: 16.0),
             TextFormField(
-              controller: _numberController,
+              controller: _adressNumberController,
               decoration: const InputDecoration(
                 labelText: 'Número do local',
               ),
@@ -330,11 +330,12 @@ class _AddEventState extends State<AddEvent> {
               },
               decoration: const InputDecoration(
                 labelText: 'Horário do evento',
+                suffixIcon: Icon(Icons.access_time, color: Colors.deepPurple),
               ),
             ),
             const SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: _uploading ? null : _uploadImage,
+              onPressed: _uploading ? null : _saveEventInformation,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.deepPurple,
                 shape: RoundedRectangleBorder(
@@ -345,30 +346,40 @@ class _AddEventState extends State<AddEvent> {
                   ? const CircularProgressIndicator()
                   : const Text('Adicionar evento'),
             ),
-            TextButton(
-              onPressed: () => {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: ((context) => HomePage())))
-              },
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.zero,
-              ),
-              child: SizedBox(
-                width: 63 * fem,
-                height: 18 * fem,
-                child: Text(
-                  'VOLTAR',
-                  textAlign: TextAlign.center,
-                  style: SafeGoogleFont(
-                    'Montserrat',
-                    fontSize: 15 * ffem,
-                    fontWeight: FontWeight.w700,
-                    height: 1.2 * ffem / fem,
-                    letterSpacing: -0.0099999998 * fem,
-                    color: const Color(0xff9586a8),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+              icon: const Icon(Icons.home, color: Colors.deepPurple),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomePage(),
                   ),
-                ),
-              ),
+                );
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.map, color: Colors.deepPurple),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MapPage(),
+                  ),
+                );
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.person, color: Colors.deepPurple),
+              onPressed: () {
+                // Implemente a ação desejada para o perfil
+              },
             ),
           ],
         ),

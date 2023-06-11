@@ -1,7 +1,10 @@
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:myapp/events/addEvent.dart';
 import 'package:myapp/events/homepage.dart';
 import 'package:myapp/events/update-event-list.dart';
+import 'package:myapp/page-3/maps.dart';
 import 'package:myapp/page-3/qr-generator.dart';
 import 'package:myapp/utils.dart';
 
@@ -15,183 +18,355 @@ class EventProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double baseWidth = 414;
-    double fem = MediaQuery.of(context).size.width / baseWidth;
-    double ffem = fem * 0.97;
-
-    // Aqui vamos buscar os dados do evento no Firebase usando o ID
     CollectionReference events =
         FirebaseFirestore.instance.collection('events');
     DocumentReference eventRef = events.doc(id);
 
     return FutureBuilder<DocumentSnapshot>(
-      future: eventRef.get(),
-      builder:
-          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return const Text('Erro ao buscar os dados do evento.');
-        }
-
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
-        }
-
-        if (!snapshot.hasData || !snapshot.data!.exists) {
-          return const Text('Evento não encontrado.');
-        }
-
-        Map<String, dynamic> eventData =
-            snapshot.data!.data() as Map<String, dynamic>;
-
-        CollectionReference events =
-            FirebaseFirestore.instance.collection('events');
-        Future<void> deleteEvent(id) {
-          return events
-              .doc(id)
-              .delete()
-              .then((value) => print('Event Deleted'))
-              .catchError((error) => print('Failed to Delete event: $error'));
-        }
-
-        Map<String, dynamic>? deletedEvent;
-
-        double baseWidth = 414;
-        double fem = MediaQuery.of(context).size.width / baseWidth;
-        double ffem = fem * 0.97;
-
-        (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        future: eventRef.get(),
+        builder:
+            (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
           if (snapshot.hasError) {
-            print('Something went wrong');
+            return const Text('Erro ao buscar os dados do evento.');
           }
+
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const CircularProgressIndicator();
           }
-          final List storedocs = [];
-          snapshot.data!.docs.map((DocumentSnapshot document) {
-            Map item = document.data() as Map<String, dynamic>;
-            storedocs.add(item);
-            item['id'] = document.id;
-          }).toList();
 
-          void undoDeleteEvent() {
-            if (deletedEvent != null) {
-              events
-                  .doc(deletedEvent!['id'])
-                  .set(deletedEvent!)
-                  .then((value) => print('Event Restored'))
-                  .catchError(
-                      (error) => print('Failed to Restore event: $error'));
-              deletedEvent = null;
-            }
+          if (!snapshot.hasData || !snapshot.data!.exists) {
+            return const Text('Evento não encontrado.');
           }
-        };
 
-        return Scaffold(
-          body: SingleChildScrollView(
-            child: SizedBox(
-              width: double.infinity,
-              child: Container(
+          Map<String, dynamic> eventData =
+              snapshot.data!.data() as Map<String, dynamic>;
+
+          CollectionReference events =
+              FirebaseFirestore.instance.collection('events');
+          Future<void> deleteEvent(id) {
+            return events
+                .doc(id)
+                .delete()
+                .then((value) => print('Event Deleted'))
+                .catchError((error) => print('Failed to Delete event: $error'));
+          }
+
+          Map<String, dynamic>? deletedEvent;
+
+          return Scaffold(
+            body: Stack(children: [
+              Image.network(
+                eventData['image'] ?? '',
+                fit: BoxFit.cover,
                 width: double.infinity,
-                height: 896 * fem,
-                decoration: const BoxDecoration(
-                  color: Color(0xfff6f5f5),
-                ),
-                child: Stack(
-                  children: [
-                    Positioned(
-                      left: 0 * fem,
-                      top: 2 * fem,
-                      child: Align(
-                        child: SizedBox(
-                          width: 421 * fem,
-                          height: 420 * fem,
-                          child: Image.network(
-                            eventData['image'] ?? '',
-                            fit: BoxFit.cover,
+                height: 300,
+              ),
+              SizedBox(
+                height: double.infinity,
+                child: Container(
+                  margin: const EdgeInsets.only(top: 250),
+                  child: Column(
+                    children: [
+                      Flexible(
+                        child: Container(
+                          height: MediaQuery.of(context).size.height,
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30),
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      left: 0 * fem,
-                      top: 281 * fem,
-                      child: Container(
-                        width: 414 * fem,
-                        height: 615 * fem,
-                        decoration: BoxDecoration(
-                          color: const Color(0xfff6f5f5),
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(30 * fem),
-                            topRight: Radius.circular(30 * fem),
-                          ),
-                        ),
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              left: 20 * fem,
-                              top: 16 * fem,
-                              child: Align(
-                                child: SizedBox(
-                                  width: 318 * fem,
-                                  height: 82 * fem,
-                                  child: Text(
-                                    eventData['name'] ?? '',
-                                    style: SafeGoogleFont(
-                                      'Montserrat',
-                                      fontSize: 30 * ffem,
-                                      fontWeight: FontWeight.w700,
-                                      height: 1.3666666667 * ffem / fem,
-                                      letterSpacing: 0.4099999964 * fem,
-                                      color: Colors.deepPurple,
+                          child: SingleChildScrollView(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: SizedBox(
+                                        child: Text(
+                                          eventData['name'] ?? '',
+                                          style: SafeGoogleFont(
+                                            'Montserrat',
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.w700,
+                                            height: 1,
+                                            color: Colors.deepPurple,
+                                          ),
+                                          maxLines: 2,
+                                        ),
+                                      ),
                                     ),
+                                    SizedBox(
+                                      child: PopupMenuButton<String>(
+                                        icon: const Icon(
+                                          Icons.more_vert,
+                                          color: Colors.deepPurple,
+                                        ),
+                                        onSelected: (value) {
+                                          if (value == 'edit') {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    UpdateEvent(
+                                                  id: storedocs[indice]['id'],
+                                                ),
+                                              ),
+                                            );
+                                          } else if (value == 'delete') {
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title: const Text(
+                                                      'Deletar evento'),
+                                                  content: const Text(
+                                                    'Tem certeza que deseja deletar este evento?',
+                                                  ),
+                                                  actions: <Widget>[
+                                                    TextButton(
+                                                      child: const Text(
+                                                          'Cancelar'),
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                    ),
+                                                    TextButton(
+                                                      child:
+                                                          const Text('Deletar'),
+                                                      onPressed: () {
+                                                        deletedEvent =
+                                                            storedocs[indice];
+                                                        deleteEvent(
+                                                            storedocs[indice]
+                                                                ['id']);
+                                                        storedocs
+                                                            .removeAt(indice);
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                    HomePage(),
+                                                          ),
+                                                        );
+                                                      },
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          } else if (value == 'mapa') {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => MapPage(
+                                                  targetAddress:
+                                                      '${eventData['address'].split(',')[0].trim()} ${eventData['number']} ${eventData['address'].split(',')[1].trim()} ${eventData['address'].split(',')[2].trim()} ${eventData['address'].split(',')[3].trim()}',
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                        },
+                                        itemBuilder: (BuildContext context) => [
+                                          const PopupMenuItem<String>(
+                                            value: 'edit',
+                                            child: ListTile(
+                                              leading: Icon(
+                                                Icons.edit,
+                                                color: Colors.deepPurple,
+                                              ),
+                                              title: Text(
+                                                'Editar',
+                                                style: TextStyle(
+                                                  color: Colors.deepPurple,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          const PopupMenuItem<String>(
+                                            value: 'delete',
+                                            child: ListTile(
+                                              leading: Icon(
+                                                Icons.delete,
+                                                color: Colors.red,
+                                              ),
+                                              title: Text(
+                                                'Deletar',
+                                                style: TextStyle(
+                                                    color: Colors.red),
+                                              ),
+                                            ),
+                                          ),
+                                          const PopupMenuItem<String>(
+                                            value: 'mapa',
+                                            child: ListTile(
+                                              leading: Icon(
+                                                Icons.map,
+                                                color: Colors.green,
+                                              ),
+                                              title: Text(
+                                                'Mapa',
+                                                style: TextStyle(
+                                                  color: Colors.green,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 24),
+                                Text(
+                                  'Informações:',
+                                  style: SafeGoogleFont(
+                                    'Montserrat',
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w700,
+                                    height: 1,
+                                    letterSpacing: -0.4099999964,
+                                    color: Colors.deepPurple,
                                   ),
                                 ),
-                              ),
-                            ),
-                            Positioned(
-                              left: 24 * fem,
-                              top: 100 * fem,
-                              child: Align(
-                                child: SizedBox(
-                                  width: 146 * fem,
-                                  height: 22 * fem,
-                                  child: Text(
-                                    'Informações:',
-                                    style: SafeGoogleFont(
-                                      'Montserrat',
-                                      fontSize: 22 * ffem,
-                                      fontWeight: FontWeight.w700,
-                                      height: 1 * ffem / fem,
-                                      letterSpacing: -0.4099999964 * fem,
-                                      color: Colors.deepPurple,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              left: 37 * fem,
-                              top: 378 * fem,
-                              child: SizedBox(
-                                width: 359 * fem,
-                                height: 33 * fem,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                const SizedBox(height: 50),
+                                Row(
                                   children: [
                                     Container(
-                                      margin: EdgeInsets.fromLTRB(
-                                          0 * fem, 0 * fem, 60 * fem, 1 * fem),
+                                      margin:
+                                          const EdgeInsets.fromLTRB(0, 4, 9, 0),
+                                      width: 12,
+                                      height: 11,
+                                      decoration: const BoxDecoration(
+                                        color: Color(0xffc4c4c4),
+                                      ),
+                                    ),
+                                    Text(
+                                      'Data:',
+                                      style: SafeGoogleFont(
+                                        'Montserrat',
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w700,
+                                        height: 1.5,
+                                        color: Colors.deepPurple,
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      eventData['date'] ?? '',
+                                      style: SafeGoogleFont(
+                                        'Montserrat',
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500,
+                                        height: 1.5,
+                                        color: const Color(0xff05be77),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                Row(
+                                  children: [
+                                    Container(
+                                      margin:
+                                          const EdgeInsets.fromLTRB(0, 4, 9, 0),
+                                      width: 12,
+                                      height: 11,
+                                      decoration: const BoxDecoration(
+                                        color: Color(0xffc4c4c4),
+                                      ),
+                                    ),
+                                    Positioned(
                                       child: Text(
-                                        'Situação do evento:',
+                                        'Hora: ',
                                         style: SafeGoogleFont(
                                           'Montserrat',
-                                          fontSize: 20 * ffem,
+                                          fontSize: 20,
                                           fontWeight: FontWeight.w700,
-                                          height: 1 * ffem / fem,
-                                          letterSpacing: -0.4099999964 * fem,
+                                          height: 1.5,
                                           color: Colors.deepPurple,
+                                        ),
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    Positioned(
+                                      child: Text(
+                                        eventData['time'] ?? '',
+                                        style: SafeGoogleFont(
+                                          'Montserrat',
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
+                                          height: 1.5,
+                                          color: const Color(0xff05be77),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          margin: const EdgeInsets.fromLTRB(
+                                              0, 4, 9, 0),
+                                          width: 12,
+                                          height: 11,
+                                          decoration: const BoxDecoration(
+                                            color: Color(0xffc4c4c4),
+                                          ),
+                                        ),
+                                        Text(
+                                          'Endereço: ',
+                                          style: SafeGoogleFont(
+                                            'Montserrat',
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w700,
+                                            height: 1.5,
+                                            letterSpacing: -0.408,
+                                            color: Colors.deepPurple,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      '${eventData['address'].split(',')[0].trim()} ${eventData['number']} ${eventData['address'].split(',')[1].trim()} ${eventData['address'].split(',')[2].trim()} ${eventData['address'].split(',')[3].trim()}',
+                                      style: SafeGoogleFont(
+                                        'Montserrat',
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500,
+                                        height: 1.5,
+                                        color: const Color(0xff05be77),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 50),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        margin:
+                                            const EdgeInsets.only(right: 60),
+                                        child: Text(
+                                          'Situação do evento:',
+                                          style: SafeGoogleFont(
+                                            'Montserrat',
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w700,
+                                            height: 1,
+                                            color: Colors.deepPurple,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -199,376 +374,120 @@ class EventProfile extends StatelessWidget {
                                       'Disponível',
                                       style: SafeGoogleFont(
                                         'Montserrat',
-                                        fontSize: 20 * ffem,
+                                        fontSize: 20,
                                         fontWeight: FontWeight.w500,
-                                        height: 1 * ffem / fem,
-                                        letterSpacing: -0.4099999964 * fem,
+                                        height: 1,
+                                        letterSpacing: -0.4099999964,
                                         color: const Color(0xff05be77),
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
-                            ),
-                            Positioned(
-                              left: 29 * fem,
-                              top: 159 * fem,
-                              child: SizedBox(
-                                width: 359 * fem,
-                                height: 26 * fem,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.fromLTRB(
-                                          0 * fem, 8 * fem, 9 * fem, 7 * fem),
-                                      width: 12 * fem,
-                                      height: double.infinity,
-                                      decoration: const BoxDecoration(
-                                        color: Color(0xffc4c4c4),
-                                      ),
-                                      child: Center(
-                                        child: SizedBox(
-                                          width: double.infinity,
-                                          height: 11 * fem,
-                                          child: Container(
-                                            decoration: const BoxDecoration(
-                                              color: Color(0xffc4c4c4),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.fromLTRB(
-                                          0 * fem, 0 * fem, 207 * fem, 0 * fem),
+                                const SizedBox(height: 32),
+                                Positioned(
+                                  child: Align(
+                                    child: SizedBox(
+                                      width: 273,
+                                      height: 20,
                                       child: Text(
-                                        'Data:',
+                                        'O QR Code lido perderá o valor após ser validado.',
+                                        textAlign: TextAlign.center,
                                         style: SafeGoogleFont(
                                           'Montserrat',
-                                          fontSize: 22 * ffem,
-                                          fontWeight: FontWeight.w700,
-                                          height: 1.2222222222 * ffem / fem,
-                                          letterSpacing: -0.4099999964 * fem,
-                                          color: Colors.deepPurple,
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w400,
+                                          height: 1.5,
+                                          letterSpacing: -0.4099999964,
+                                          color: const Color(0xffa88686),
                                         ),
                                       ),
-                                    ),
-                                    Text(
-                                      eventData['date'] ?? '',
-                                      style: SafeGoogleFont(
-                                        'Montserrat',
-                                        fontSize: 20 * ffem,
-                                        fontWeight: FontWeight.w500,
-                                        height: 1.5 * ffem / fem,
-                                        letterSpacing: -0.4099999964 * fem,
-                                        color: const Color(0xff05be77),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              left: 29 * fem,
-                              top: 198 * fem,
-                              child: SizedBox(
-                                width: 363 * fem,
-                                height: 26 * fem,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.fromLTRB(
-                                          0 * fem, 0 * fem, 9 * fem, 5 * fem),
-                                      width: 12 * fem,
-                                      height: 11 * fem,
-                                      decoration: const BoxDecoration(
-                                        color: Color(0xffc4c4c4),
-                                      ),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.fromLTRB(
-                                          0 * fem, 0 * fem, 186 * fem, 4 * fem),
-                                      child: Text(
-                                        'Horário:',
-                                        style: SafeGoogleFont(
-                                          'Montserrat',
-                                          fontSize: 22 * ffem,
-                                          fontWeight: FontWeight.w700,
-                                          height: 1.2222222222 * ffem / fem,
-                                          letterSpacing: -0.4099999964 * fem,
-                                          color: Colors.deepPurple,
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      eventData['time'] ?? '',
-                                      style: SafeGoogleFont(
-                                        'Montserrat',
-                                        fontSize: 20 * ffem,
-                                        fontWeight: FontWeight.w500,
-                                        height: 1.5 * ffem / fem,
-                                        letterSpacing: -0.4099999964 * fem,
-                                        color: const Color(0xff05be77),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              left: 35 * fem,
-                              top: 270 * fem,
-                              child: Align(
-                                child: SizedBox(
-                                  width: 357 * fem,
-                                  height: 51 * fem,
-                                  child: Text(
-                                    eventData['address'] ?? '',
-                                    style: SafeGoogleFont(
-                                      'Montserrat',
-                                      fontSize: 25 * ffem,
-                                      fontWeight: FontWeight.w500,
-                                      height: 1.5 * ffem / fem,
-                                      letterSpacing: -0.4099999964 * fem,
-                                      color: const Color(0xff05be77),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ),
-                            Positioned(
-                              left: 29 * fem,
-                              top: 234 * fem,
-                              child: SizedBox(
-                                width: 110 * fem,
-                                height: 22 * fem,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                Row(
                                   children: [
-                                    Container(
-                                      margin: EdgeInsets.fromLTRB(
-                                          0 * fem, 1 * fem, 9 * fem, 0 * fem),
-                                      width: 12 * fem,
-                                      height: 11 * fem,
-                                      decoration: const BoxDecoration(
-                                        color: Color(0xffc4c4c4),
-                                      ),
-                                    ),
-                                    Text(
-                                      'Endereço:',
-                                      style: SafeGoogleFont(
-                                        'Montserrat',
-                                        fontSize: 22 * ffem,
-                                        fontWeight: FontWeight.w700,
-                                        height: 1.2222222222 * ffem / fem,
-                                        letterSpacing: -0.4099999964 * fem,
-                                        color: Colors.deepPurple,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              right: 20 * fem,
-                              top: 20 * fem,
-                              child: SizedBox(
-                                width: 36 * fem,
-                                height: 36 * fem,
-                                child: PopupMenuButton<String>(
-                                  icon: const Icon(
-                                    Icons.more_vert,
-                                    color: Colors.deepPurple,
-                                  ),
-                                  onSelected: (value) {
-                                    if (value == 'edit') {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => UpdateEvent(
-                                            id: storedocs[indice]['id'],
-                                          ),
-                                        ),
-                                      );
-                                    } else if (value == 'delete') {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            title: const Text('Deletar evento'),
-                                            content: const Text(
-                                              'Tem certeza que deseja deletar este evento?',
-                                            ),
-                                            actions: <Widget>[
-                                              TextButton(
-                                                child: const Text('Cancelar'),
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                              ),
-                                              TextButton(
-                                                child: const Text('Deletar'),
-                                                onPressed: () {
-                                                  deletedEvent =
-                                                      storedocs[indice];
-                                                  deleteEvent(
-                                                      storedocs[indice]['id']);
-                                                  storedocs.removeAt(indice);
-                                                  Navigator.of(context).pop();
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
+                                    Flexible(
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            IconButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
                                                       builder: (context) =>
-                                                          HomePage(),
-                                                    ),
-                                                  );
-                                                },
+                                                          QRCodeScannerPage()),
+                                                );
+                                              },
+                                              icon: const Icon(Icons.qr_code),
+                                              iconSize: 60.0,
+                                              color: Colors.deepPurple,
+                                            ),
+                                            const SizedBox(height: 2.0),
+                                            const Text(
+                                              'Ler QR code.',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize: 15.0,
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.deepPurple,
                                               ),
-                                            ],
-                                          );
-                                        },
-                                      );
-                                    }
-                                  },
-                                  itemBuilder: (BuildContext context) => [
-                                    const PopupMenuItem<String>(
-                                      value: 'edit',
-                                      child: ListTile(
-                                        leading: Icon(
-                                          Icons.edit,
-                                          color: Colors.deepPurple,
-                                        ),
-                                        title: Text(
-                                          'Editar',
-                                          style: TextStyle(
-                                            color: Colors.deepPurple,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    const PopupMenuItem<String>(
-                                      value: 'delete',
-                                      child: ListTile(
-                                        leading: Icon(
-                                          Icons.delete,
-                                          color: Colors.red,
-                                        ),
-                                        title: Text(
-                                          'Deletar',
-                                          style: TextStyle(color: Colors.red),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
+                              ],
                             ),
-                            Positioned(
-                              left: 70 * fem,
-                              top: 437 * fem,
-                              child: Align(
-                                child: SizedBox(
-                                  width: 273 * fem,
-                                  height: 20 * fem,
-                                  child: Text(
-                                    'O QR Code lido perderá o valor após ser validado.',
-                                    textAlign: TextAlign.center,
-                                    style: SafeGoogleFont(
-                                      'Montserrat',
-                                      fontSize: 13 * ffem,
-                                      fontWeight: FontWeight.w400,
-                                      height: 1.5 * ffem / fem,
-                                      letterSpacing: -0.4099999964 * fem,
-                                      color: const Color(0xffa88686),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              left: 175 * fem,
-                              top: 551 * fem,
-                              child: Align(
-                                child: TextButton(
-                                  onPressed: () => {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: ((context) => HomePage())))
-                                  },
-                                  style: TextButton.styleFrom(
-                                    padding: EdgeInsets.zero,
-                                  ),
-                                  child: SizedBox(
-                                    width: 63 * fem,
-                                    height: 18 * fem,
-                                    child: Text(
-                                      'VOLTAR',
-                                      textAlign: TextAlign.center,
-                                      style: SafeGoogleFont(
-                                        'Montserrat',
-                                        fontSize: 15 * ffem,
-                                        fontWeight: FontWeight.w700,
-                                        height: 1.2 * ffem / fem,
-                                        letterSpacing: -0.0099999998 * fem,
-                                        color: const Color(0xff9586a8),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              left: 20 * fem,
-                              top: 474 * fem,
-                              child: Container(
-                                width: 374 * fem,
-                                height: 56 * fem,
-                                decoration: BoxDecoration(
-                                  color: Colors.deepPurple,
-                                  borderRadius: BorderRadius.circular(8 * fem),
-                                ),
-                                child: TextButton(
-                                  onPressed: () => {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: ((context) =>
-                                                QRCodeScannerPage())))
-                                  },
-                                  style: TextButton.styleFrom(
-                                    padding: EdgeInsets.zero,
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      'LER QR CODE',
-                                      textAlign: TextAlign.center,
-                                      style: SafeGoogleFont(
-                                        'Montserrat',
-                                        fontSize: 15 * ffem,
-                                        fontWeight: FontWeight.w700,
-                                        height: 1.2 * ffem / fem,
-                                        letterSpacing: -0.0099999998 * fem,
-                                        color: const Color(0xffffffff),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
+            ]),
+            bottomNavigationBar: BottomAppBar(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.home, color: Colors.deepPurple),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomePage(),
+                        ),
+                      );
+                    },
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.map, color: Colors.deepPurple),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MapPage(),
+                        ),
+                      );
+                    },
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.person, color: Colors.deepPurple),
+                    onPressed: () {
+                      // Implemente a ação desejada para o perfil
+                    },
+                  ),
+                ],
+              ),
             ),
-          ),
-        );
-      },
-    );
+          );
+        });
   }
 }

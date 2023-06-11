@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp/events/addEvent.dart';
 import 'package:myapp/utils.dart' show SafeGoogleFont;
 import 'package:myapp/auth/login.dart';
 import 'package:myapp/auth/signUp.dart';
@@ -70,7 +71,7 @@ class Homescreen extends StatelessWidget {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: ((context) => Login())))
+                                        builder: ((context) => HomePage())))
                               }
                           },
                           child: Center(

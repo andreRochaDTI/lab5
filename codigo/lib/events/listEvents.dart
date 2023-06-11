@@ -1,7 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/Events/event-profile.dart';
-import 'package:myapp/events/update-event-list.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:myapp/main.dart';
 import 'package:page_transition/page_transition.dart';
@@ -63,7 +61,7 @@ class _EventListState extends State<ListEvents> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => EventProfile(
+                            builder: (context) => EventP(
                               id: storedocs[i]['id'],
                               indice: i,
                               storedocs: storedocs,
@@ -118,11 +116,11 @@ class _EventListState extends State<ListEvents> {
                                         style: SafeGoogleFont(
                                           'Montserrat',
                                           fontSize: 24 * ffem,
-                                          fontWeight: FontWeight.w300,
+                                          fontWeight: FontWeight.w700,
                                           height: 0.9166666667 * ffem / fem,
                                           letterSpacing: -0.4099999964 * fem,
                                           fontStyle: FontStyle.italic,
-                                          color: Colors.black,
+                                          color: Colors.deepPurple,
                                         ),
                                       ),
                                     ),
@@ -138,11 +136,29 @@ class _EventListState extends State<ListEvents> {
                                           style: SafeGoogleFont(
                                             'Montserrat',
                                             fontSize: 15 * ffem,
-                                            fontWeight: FontWeight.w400,
+                                            fontWeight: FontWeight.w500,
                                             height: 1.375 * ffem / fem,
                                             letterSpacing: -0.4099999964 * fem,
-                                            color: Colors.black,
+                                            color: Colors.green,
                                           ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      constraints: BoxConstraints(
+                                        maxWidth: 380 * fem,
+                                      ),
+                                      child: Text(
+                                        storedocs[i]['date'],
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: SafeGoogleFont(
+                                          'Montserrat',
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500,
+                                          height: 0.9166666667 * ffem / fem,
+                                          letterSpacing: 1 * fem,
+                                          color: Colors.deepPurple,
                                         ),
                                       ),
                                     ),
