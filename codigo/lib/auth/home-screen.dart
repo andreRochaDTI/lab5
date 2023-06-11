@@ -4,7 +4,7 @@ import 'package:myapp/events/addEvent.dart';
 import 'package:myapp/utils.dart' show SafeGoogleFont;
 import 'package:myapp/auth/login.dart';
 import 'package:myapp/auth/signUp.dart';
-import '../events/homepage.dart';
+import '../Admin/events/homepage.dart';
 import 'about-us.dart';
 
 class Homescreen extends StatelessWidget {

@@ -4,8 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:myapp/profile/alterarSenha.dart';
 
 import '../auth/login.dart';
-import '../Admin/events/homepage.dart';
-import '../utils/maps.dart';
+import '../events/homepage.dart';
+import '../page-3/maps.dart';
 import 'editarPefil.dart';
 
 class ProfilePage extends StatelessWidget {

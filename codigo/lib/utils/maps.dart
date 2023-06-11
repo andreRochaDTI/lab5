@@ -3,7 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as location;
 import 'package:geocoding/geocoding.dart';
 
-import '../events/homepage.dart';
+import '../Admin/events/homepage.dart';
 
 class MapPage extends StatefulWidget {
   final String? targetAddress;

@@ -10,8 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import '../page-3/maps.dart';
-import '../utils.dart';
+import '../../utils/maps.dart';
 import 'homepage.dart';
 
 class AddEvent extends StatefulWidget {

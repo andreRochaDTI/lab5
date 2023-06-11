@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class QRCodeScannerPage extends StatefulWidget {
   @override
@@ -32,20 +33,37 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage> {
         setState(() {
           showValidMessage = true;
         });
-        if (scanData.code!.toUpperCase() == 'VÁLIDO') {
-          print('QR Code válido: ${scanData.code}');
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text(
-                'QR Code válido',
-                style: TextStyle(color: Colors.white),
-              ),
-              backgroundColor: Colors.green,
-            ),
-          );
-        }
+        validateQRCode(scanData.code!);
       }
     });
+  }
+
+  void validateQRCode(String code) async {
+    CollectionReference events =
+        FirebaseFirestore.instance.collection('events');
+    QuerySnapshot<Map<String, dynamic>> snapshot = await events
+        .where('qrCode', isEqualTo: code)
+        .limit(1)
+        .get();
+
+    if (snapshot.docs.isNotEmpty) {
+      print('QR Code válido: $code');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'QR Code válido',
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.green,
+        ),
+      );
+    } else {
+      print('QR Code inválido: $code');
+      setState(() {
+        showErrorMessage = true;
+      });
+      pauseCamera();
+    }
   }
 
   void startTimer() {
