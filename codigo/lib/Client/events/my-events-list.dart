@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:myapp/Client/events/event-profile.dart';
+import 'package:myapp/Client/events/client-event-profile.dart';
 import 'package:myapp/auth/login.dart';
 
 class MyEventsList extends StatelessWidget {

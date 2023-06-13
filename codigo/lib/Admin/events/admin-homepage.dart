@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/Admin/events/addEvent.dart';
-import 'package:myapp/Admin/events/listEvents.dart';
+import 'package:myapp/Admin/events/admin-list-events.dart';
 import 'package:myapp/Admin/profile/profile.dart';
-
-import '../../utils/maps.dart';
+import '../utils/admin-maps.dart';
 import '../../utils/utils.dart';
 
 class AdminHomePage extends StatefulWidget {
@@ -55,7 +54,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const MapPage(),
+                    builder: (context) => AdminMapPage(),
                   ),
                 );
               },
@@ -66,7 +65,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ProfilePage(),
+                    builder: (context) => AdminProfilePage(),
                   ),
                 );
               },
@@ -152,7 +151,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                   ),
                 ),
               ),
-              const ListEvents(),
+              const AdminEventsList(),
             ],
           ),
         ),

@@ -9,7 +9,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
-import 'package:myapp/Admin/events/homepage.dart';
+import 'package:myapp/Admin/events/admin-homepage.dart';
+import 'package:myapp/Admin/profile/profile.dart';
+import 'package:myapp/Admin/utils/admin-maps.dart';
 
 class UpdateEvent extends StatefulWidget {
   final String id;
@@ -231,13 +233,10 @@ class _UpdateEventState extends State<UpdateEvent> {
                     ),
                   ),
                 ),
-                keyboardType:
-                    TextInputType.number, // Define o teclado como numérico
+                keyboardType: TextInputType.number,
                 inputFormatters: [
-                  FilteringTextInputFormatter
-                      .digitsOnly, // Permite apenas dígitos
-                  LengthLimitingTextInputFormatter(
-                      8), // Limita a 8 caracteres (padrão de CEP no Brasil)
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(8),
                 ],
               ),
               const SizedBox(height: 16.0),
@@ -263,9 +262,7 @@ class _UpdateEventState extends State<UpdateEvent> {
                   DatePicker.showDatePicker(
                     context,
                     showTitleActions: true,
-                    minTime: DateTime.now().add(const Duration(
-                        days:
-                            7)), // Restringe a data mínima para 1 semana à frente
+                    minTime: DateTime.now().add(const Duration(days: 7)),
                     maxTime: DateTime(2030, 12, 31),
                     onChanged: (date) {},
                     onConfirm: (date) {
@@ -331,6 +328,46 @@ class _UpdateEventState extends State<UpdateEvent> {
                         valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                       )
                     : const Text('Enviar'),
+              ),
+            ],
+          ),
+        ),
+        bottomNavigationBar: BottomAppBar(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.home, color: Colors.deepPurple),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AdminHomePage(),
+                    ),
+                  );
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.map, color: Colors.deepPurple),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AdminMapPage(),
+                    ),
+                  );
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.person, color: Colors.deepPurple),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AdminProfilePage(),
+                    ),
+                  );
+                },
               ),
             ],
           ),

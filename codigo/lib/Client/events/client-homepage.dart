@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/Admin/profile/profile.dart';
+import 'package:myapp/Client/profile/client-profile.dart';
+import 'package:myapp/Client/events/listEvents.dart';
+import 'package:myapp/Client/utils/maps.dart';
 import 'package:myapp/utils/utils.dart';
-
-import '../../Admin/events/listEvents.dart';
-import '../../utils/maps.dart';
 
 class ClientHomePage extends StatefulWidget {
   ClientHomePage({Key? key}) : super(key: key);
@@ -42,7 +41,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const MapPage(),
+                    builder: (context) => const ClientMapPage(),
                   ),
                 );
               },
@@ -53,9 +52,15 @@ class _ClientHomePageState extends State<ClientHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ProfilePage(),
+                    builder: (context) => ClientProfilePage(),
                   ),
                 );
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.event, color: Colors.deepPurple),
+              onPressed: () {
+                // Navegue para a página de ingressos aqui
               },
             ),
           ],
@@ -118,7 +123,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'Eventos cadastrados: ',
+                                      'Eventos disponíveis: ',
                                       textAlign: TextAlign.center,
                                       style: SafeGoogleFont(
                                         'Montserrat',
@@ -139,7 +144,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
                   ),
                 ),
               ),
-              const ListEvents(),
+              const ClientEventList(),
             ],
           ),
         ),

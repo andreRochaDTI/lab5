@@ -9,14 +9,10 @@ import 'package:myapp/auth/login.dart';
 class Homescreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double baseWidth = 414;
-    double fem = MediaQuery.of(context).size.width / baseWidth;
-    double ffem = fem * 0.97;
-
     return SizedBox(
       width: double.infinity,
       child: Container(
-        padding: EdgeInsets.fromLTRB(0 * fem, 142 * fem, 0 * fem, 0 * fem),
+        padding: const EdgeInsets.fromLTRB(0, 142, 0, 0),
         width: double.infinity,
         child: SingleChildScrollView(
           child: Column(
@@ -24,56 +20,42 @@ class Homescreen extends StatelessWidget {
             children: [
               Image.asset(
                 'assets/page-1/images/logo.png',
-                width: 200 * fem,
-                height: 200 * fem,
+                width: 200,
+                height: 200,
               ),
               Container(
-                padding: EdgeInsets.fromLTRB(
-                    11 * fem, 56 * fem, 18 * fem, 100 * fem),
+                padding: const EdgeInsets.fromLTRB(11, 56, 18, 100),
                 width: double.infinity,
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        margin: EdgeInsets.fromLTRB(
-                            0 * fem, 0 * fem, 11 * fem, 61 * fem),
+                        margin: const EdgeInsets.fromLTRB(0, 0, 11, 61),
                         child: Text(
                           'Uma nova maneira de curtir seus eventos.',
                           textAlign: TextAlign.center,
                           style: SafeGoogleFont(
-                            'Montserrat',
-                            fontSize: 18 * ffem,
+                            'Roboto',
+                            fontSize: 18,
                             fontWeight: FontWeight.w400,
-                            height: 1.5 * ffem / fem,
-                            letterSpacing: -0.4099999964 * fem,
-                            color: Colors.purple,
+                            height: 1.5,
+                            letterSpacing: -0.4099999964,
+                            color: Colors.deepPurple,
                           ),
                         ),
                       ),
                       Container(
                         decoration: BoxDecoration(
                           color: Colors.green,
-                          borderRadius: BorderRadius.circular(12 * fem),
+                          borderRadius: BorderRadius.circular(12),
                         ),
                         child: TextButton(
                           onPressed: () => {
-                            if (FirebaseAuth.instance.currentUser != null)
-                              {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: ((context) =>
-                                            ClientHomePage())))
-                              }
-                            else
-                              {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: ((context) =>
-                                            ClientHomePage())))
-                              }
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) => Login())))
                           },
                           child: Center(
                             child: Center(
@@ -81,11 +63,11 @@ class Homescreen extends StatelessWidget {
                                 'LOGIN',
                                 textAlign: TextAlign.center,
                                 style: SafeGoogleFont(
-                                  'Montserrat',
-                                  fontSize: 15 * ffem,
+                                  'Roboto',
+                                  fontSize: 20,
                                   fontWeight: FontWeight.w700,
-                                  height: 1.2 * ffem / fem,
-                                  letterSpacing: -0.0099999998 * fem,
+                                  height: 1.2,
+                                  letterSpacing: -0.0099999998,
                                   color: const Color(0xffffffff),
                                 ),
                               ),
@@ -102,18 +84,18 @@ class Homescreen extends StatelessWidget {
                         },
                         child: SizedBox(
                           width: double.infinity,
-                          height: 18 * fem,
+                          height: 30,
                           child: Center(
                             child: Text(
                               'CADASTRE-SE',
                               textAlign: TextAlign.center,
                               style: SafeGoogleFont(
-                                'Montserrat',
-                                fontSize: 15 * ffem,
+                                'Roboto',
+                                fontSize: 20,
                                 fontWeight: FontWeight.w700,
-                                height: 1.2 * ffem / fem,
-                                letterSpacing: -0.0099999998 * fem,
-                                color: Colors.purple,
+                                height: 1.2,
+                                letterSpacing: -0.0099999998,
+                                color: Colors.deepPurple,
                               ),
                             ),
                           ),
@@ -131,18 +113,18 @@ class Homescreen extends StatelessWidget {
                         },
                         child: SizedBox(
                           width: double.infinity,
-                          height: 30 * fem,
+                          height: 30,
                           child: Center(
                             child: Text(
                               'SOBRE NÓS',
                               textAlign: TextAlign.center,
                               style: SafeGoogleFont(
-                                'Montserrat',
-                                fontSize: 12 * ffem,
+                                'Roboto',
+                                fontSize: 15,
                                 fontWeight: FontWeight.w700,
-                                height: 1.1 * ffem / fem,
-                                letterSpacing: -0.0099999998 * fem,
-                                color: Colors.purple,
+                                height: 1.1,
+                                letterSpacing: -0.0099999998,
+                                color: Colors.deepPurple,
                               ),
                             ),
                           ),

@@ -1,21 +1,19 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:myapp/Admin/events/event-profile.dart';
-import 'package:myapp/main.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:myapp/Admin/events/admin-event-profile.dart';
+import 'package:myapp/Client/events/client-event-profile.dart';
 
 import 'package:myapp/utils/utils.dart' show SafeGoogleFont;
 
-class ListEvents extends StatefulWidget {
-  const ListEvents({Key? key}) : super(key: key);
+class AdminEventsList extends StatefulWidget {
+  const AdminEventsList({Key? key}) : super(key: key);
 
   @override
-  _EventListState createState() => _EventListState();
+  _AdminEventsListState createState() => _AdminEventsListState();
 }
 
-class _EventListState extends State<ListEvents> {
-  final Stream<QuerySnapshot> studentsStream =
+class _AdminEventsListState extends State<AdminEventsList> {
+  final Stream<QuerySnapshot> eventStream =
       FirebaseFirestore.instance.collection('events').snapshots();
 
   @override
@@ -26,7 +24,7 @@ class _EventListState extends State<ListEvents> {
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
     return StreamBuilder<QuerySnapshot>(
-      stream: studentsStream,
+      stream: eventStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
           print('Something went wrong');

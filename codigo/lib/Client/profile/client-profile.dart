@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:myapp/Client/events/client-homepage.dart';
 import 'package:myapp/Admin/profile/alterarSenha.dart';
+import 'package:myapp/Client/utils/maps.dart';
 
+import '../../auth/about-us.dart';
 import '../../auth/login.dart';
-import '../../utils/maps.dart';
 import 'editarPefil.dart';
 
-class ProfilePage extends StatelessWidget {
+class ClientProfilePage extends StatelessWidget {
   final User? user = FirebaseAuth.instance.currentUser;
 
   @override
@@ -143,7 +144,12 @@ class ProfilePage extends StatelessWidget {
                 const SizedBox(height: 10.0),
                 TextButton(
                   onPressed: () {
-                    // Ação do container clicado
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => About(),
+                      ),
+                    );
                   },
                   child: SizedBox(
                     width: double.infinity,
@@ -235,7 +241,7 @@ class ProfilePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const MapPage(),
+                    builder: (context) => const ClientMapPage(),
                   ),
                 );
               },
@@ -246,9 +252,15 @@ class ProfilePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ProfilePage(),
+                    builder: (context) => ClientProfilePage(),
                   ),
                 );
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.event, color: Colors.deepPurple),
+              onPressed: () {
+                // Navegue para a página de ingressos aqui
               },
             ),
           ],

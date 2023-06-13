@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:myapp/Admin/events/homepage.dart';
+import 'package:myapp/Admin/events/admin-homepage.dart';
 import 'package:myapp/Admin/events/qr-reader.dart';
-import 'package:myapp/events/update-event-list.dart';
+import 'package:myapp/Admin/events/update-event-list.dart';
+import 'package:myapp/Admin/profile/profile.dart';
 
-import '../../utils/maps.dart';
+import '../utils/admin-maps.dart';
 import '../../utils/utils.dart';
 
 class AdminEventProfile extends StatelessWidget {
@@ -164,9 +165,10 @@ class AdminEventProfile extends StatelessWidget {
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                builder: (context) => MapPage(
+                                                builder: (context) =>
+                                                    AdminMapPage(
                                                   targetAddress:
-                                                      '${eventData['address'].split(',')[0].trim()} ${eventData['number']} ${eventData['address'].split(',')[1].trim()} ${eventData['address'].split(',')[2].trim()} ${eventData['address'].split(',')[3].trim()}',
+                                                      '${eventData['address'].split(',')[0].trim()} ${eventData['addressNumber']} ${eventData['address'].split(',')[1].trim()} ${eventData['address'].split(',')[2].trim()} ${eventData['address'].split(',')[3].trim()}',
                                                 ),
                                               ),
                                             );
@@ -337,7 +339,7 @@ class AdminEventProfile extends StatelessWidget {
                                     ),
                                     const SizedBox(height: 8),
                                     Text(
-                                      '${eventData['address'].split(',')[0].trim()} ${eventData['number']} ${eventData['address'].split(',')[1].trim()} ${eventData['address'].split(',')[2].trim()} ${eventData['address'].split(',')[3].trim()}',
+                                      '${eventData['address'].split(',')[0].trim()} ${eventData['addressNumber']} ${eventData['address'].split(',')[1].trim()} ${eventData['address'].split(',')[2].trim()} ${eventData['address'].split(',')[3].trim()}',
                                       style: SafeGoogleFont(
                                         'Montserrat',
                                         fontSize: 18,
@@ -417,7 +419,12 @@ class AdminEventProfile extends StatelessWidget {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          QRCodeScannerPage()),
+                                                          QRCodeScanner(
+                                                              eventName:
+                                                                  storedocs[
+                                                                          indice]
+                                                                      [
+                                                                      'name'])),
                                                 );
                                               },
                                               icon: const Icon(Icons.qr_code),
@@ -471,7 +478,7 @@ class AdminEventProfile extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const MapPage(),
+                          builder: (context) => const AdminMapPage(),
                         ),
                       );
                     },
@@ -479,7 +486,12 @@ class AdminEventProfile extends StatelessWidget {
                   IconButton(
                     icon: const Icon(Icons.person, color: Colors.deepPurple),
                     onPressed: () {
-                      // Implemente a ação desejada para o perfil
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AdminProfilePage(),
+                        ),
+                      );
                     },
                   ),
                 ],

@@ -1,9 +1,6 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
-//Autenticação pelo Email e Senha
+import 'package:myapp/auth/login.dart';
 
 class ForgotPassword extends StatefulWidget {
   @override
@@ -27,16 +24,17 @@ class ForgotPasswordState extends State<ForgotPassword> {
     FirebaseAuth auth = FirebaseAuth.instance;
 
     return Scaffold(
-      appBar: AppBar(
-          title: const Text("E-vento"),
-          centerTitle: true,
-          backgroundColor: Colors.purple),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              const Text(
+                "Insira seu email para recuperar a senha",
+                style: TextStyle(fontSize: 18, color: Colors.deepPurple),
+              ),
+              const SizedBox(height: 20),
               Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -50,20 +48,22 @@ class ForgotPasswordState extends State<ForgotPassword> {
                           keyboardType: TextInputType.emailAddress,
                           decoration: const InputDecoration(
                             labelText: "Email",
-                            labelStyle: TextStyle(color: Colors.purple),
+                            labelStyle: TextStyle(color: Colors.deepPurple),
                             border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.purple),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20))),
+                              borderSide: BorderSide(color: Colors.deepPurple),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                            ),
                             enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.purple),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20))),
+                              borderSide: BorderSide(color: Colors.deepPurple),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                            ),
                           ),
                           validator: (text) {
-                            if (text!.isEmpty || !text.contains('@'))
+                            if (text!.isEmpty || !text.contains('@')) {
                               return "Email inválido";
-                            else {
+                            } else {
                               return null;
                             }
                           },
@@ -76,48 +76,77 @@ class ForgotPasswordState extends State<ForgotPassword> {
                       height: 20,
                     ),
                     Container(
-                        height: screenHeight * 0.065,
-                        width: screenWidth * 0.50,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          gradient: LinearGradient(
-                              colors: [Colors.purpleAccent, Colors.purple],
-                              begin: Alignment.centerLeft,
-                              end: Alignment.bottomRight),
+                      height: screenHeight * 0.065,
+                      width: screenWidth * 0.50,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        gradient: LinearGradient(
+                          colors: [Colors.deepPurpleAccent, Colors.deepPurple],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.bottomRight,
                         ),
-                        alignment: Alignment.center,
-                        child: TextButton(
-                          child: const Text('Recuperar senha',
-                              style:
-                                  TextStyle(fontSize: 17, color: Colors.white)),
-                          onPressed: () {
-                            _formKeyPass.currentState?.reset();
-                            if (_formKeyEmail.currentState!.validate()) {
-                              auth
-                                  .fetchSignInMethodsForEmail(
-                                      _emailController.text)
-                                  .then((providers) {
-                                if (providers.isNotEmpty) {
-                                  auth
-                                      .sendPasswordResetEmail(
-                                          email: _emailController.text)
-                                      .then((value) {});
+                      ),
+                      alignment: Alignment.center,
+                      child: TextButton(
+                        child: const Text(
+                          'Recuperar senha',
+                          style: TextStyle(fontSize: 17, color: Colors.white),
+                        ),
+                        onPressed: () {
+                          _formKeyPass.currentState?.reset();
+                          if (_formKeyEmail.currentState!.validate()) {
+                            auth
+                                .fetchSignInMethodsForEmail(
+                                    _emailController.text)
+                                .then((providers) {
+                              if (providers.isNotEmpty) {
+                                auth
+                                    .sendPasswordResetEmail(
+                                        email: _emailController.text)
+                                    .then((value) {
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(const SnackBar(
                                     content: Text(
                                         'Link para recuperação do email enviado.'),
                                   ));
-                                } else {
+                                }).catchError((error) {
                                   ScaffoldMessenger.of(context)
-                                      .showSnackBar(const SnackBar(
+                                      .showSnackBar(SnackBar(
                                     content: Text(
-                                        'Email não encontrado. Verifique se o endereço de email está correto ou crie uma nova conta.'),
+                                        'Erro ao enviar link de recuperação de senha: $error'),
                                   ));
-                                }
-                              });
-                            }
-                          },
-                        ))
+                                });
+                              } else {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text(
+                                      'Email não encontrado. Verifique se o endereço de email está correto ou crie uma nova conta.'),
+                                ));
+                              }
+                            }).catchError((error) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content:
+                                    Text('Erro ao verificar o email: $error'),
+                              ));
+                            });
+                          }
+                        },
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Login()),
+                        );
+                      },
+                      child: const Text(
+                        "Entrar",
+                        style:
+                            TextStyle(color: Colors.deepPurple, fontSize: 20),
+                      ),
+                    ),
                   ],
                 ),
               )

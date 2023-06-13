@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:myapp/Client/events/client-homepage.dart';
 import 'package:myapp/auth/forgotPassword.dart';
 import 'package:myapp/auth/signUp.dart';
-import 'package:myapp/utils/utils.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../Admin/events/admin-homepage.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -13,19 +16,18 @@ class Login extends StatefulWidget {
 class _EmailPassPage extends State<Login> {
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
-  final _formKeyEmail = GlobalKey<FormState>();
-  final _formKeyPass = GlobalKey<FormState>();
   final _formKey = GlobalKey<FormBuilderState>();
   bool passwordVisible = false;
   bool logado = false;
+  late final String? selectedRoleValue;
 
   @override
   Widget build(BuildContext context) {
-    MediaQueryData _mediaQueryData;
+    MediaQueryData mediaQueryData;
 
-    _mediaQueryData = MediaQuery.of(context);
-    double screenWidth = _mediaQueryData.size.width;
-    double screenHeight = _mediaQueryData.size.height;
+    mediaQueryData = MediaQuery.of(context);
+    double screenWidth = mediaQueryData.size.width;
+    double screenHeight = mediaQueryData.size.height;
 
     if (FirebaseAuth.instance.currentUser != null) {
       logado = true;
@@ -33,11 +35,6 @@ class _EmailPassPage extends State<Login> {
     FirebaseAuth auth = FirebaseAuth.instance;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("E-vento"),
-        centerTitle: true,
-        backgroundColor: Colors.purple,
-      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
@@ -57,14 +54,14 @@ class _EmailPassPage extends State<Login> {
                           keyboardType: TextInputType.emailAddress,
                           decoration: const InputDecoration(
                             labelText: "Email",
-                            labelStyle: TextStyle(color: Colors.purple),
+                            labelStyle: TextStyle(color: Colors.deepPurple),
                             border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.purple),
+                              borderSide: BorderSide(color: Colors.deepPurple),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
                             ),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.purple),
+                              borderSide: BorderSide(color: Colors.deepPurple),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
                             ),
@@ -95,14 +92,15 @@ class _EmailPassPage extends State<Login> {
                           obscureText: !passwordVisible,
                           decoration: InputDecoration(
                             labelText: "Senha",
-                            labelStyle: TextStyle(color: Colors.purple),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.purple),
+                            labelStyle:
+                                const TextStyle(color: Colors.deepPurple),
+                            border: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.deepPurple),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
                             ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.purple),
+                            enabledBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.deepPurple),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
                             ),
@@ -111,7 +109,7 @@ class _EmailPassPage extends State<Login> {
                                 passwordVisible
                                     ? Icons.visibility
                                     : Icons.visibility_off,
-                                color: Colors.purple,
+                                color: Colors.deepPurple,
                               ),
                               onPressed: () {
                                 setState(() {
@@ -136,28 +134,30 @@ class _EmailPassPage extends State<Login> {
                       DropdownButtonFormField<String>(
                         decoration: const InputDecoration(
                           labelText: 'Função',
-                          labelStyle: TextStyle(color: Colors.purple),
+                          labelStyle: TextStyle(color: Colors.deepPurple),
                           border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.purple),
+                            borderSide: BorderSide(color: Colors.deepPurple),
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.purple),
+                            borderSide: BorderSide(color: Colors.deepPurple),
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                           ),
                         ),
-                        items: [
+                        items: const [
                           DropdownMenuItem(
                             value: 'admin',
-                            child: const Text('Administrador'),
+                            child: Text('Administrador'),
                           ),
                           DropdownMenuItem(
-                            value: 'user',
-                            child: const Text('Usuário'),
+                            value: 'client',
+                            child: Text('Cliente'),
                           ),
                         ],
                         onChanged: (value) {
-                          // Handle dropdown value change
+                          setState(() {
+                            selectedRoleValue = value;
+                          });
                         },
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -177,7 +177,7 @@ class _EmailPassPage extends State<Login> {
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                             gradient: LinearGradient(
-                              colors: [Color(0xff9586a8), Color(0xff0bce83)],
+                              colors: [Colors.green, Colors.deepPurple],
                               begin: Alignment.centerLeft,
                               end: Alignment.bottomRight,
                             ),
@@ -187,7 +187,7 @@ class _EmailPassPage extends State<Login> {
                               child: Text(
                                 "Login",
                                 style: TextStyle(
-                                    fontSize: 17, color: Colors.white),
+                                    fontSize: 20, color: Colors.white),
                               ),
                             ),
                             onPressed: () async {
@@ -197,25 +197,43 @@ class _EmailPassPage extends State<Login> {
                                     email: _emailController.text,
                                     password: _passController.text,
                                   );
-                                  setState(() {
-                                    logado = true;
-                                  });
-                                  final formData = _formKey.currentState!.value;
-                                  final selectedRole = formData['role'];
-                                  if (selectedRole == 'admin') {
-                                    // Redirecionar para a tela do administrador
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: ((context) => AdminScreen()),
-                                      ),
-                                    );
+
+                                  final userDoc = FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(FirebaseAuth
+                                          .instance.currentUser?.uid);
+
+                                  final userData = await userDoc.get();
+
+                                  if (userData.exists &&
+                                      selectedRoleValue ==
+                                          userData.data()?['role']) {
+                                    final userRole = userData.data()?['role'];
+                                    if (userRole == 'admin') {
+                                      // ignore: use_build_context_synchronously
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: ((context) =>
+                                              AdminHomePage()),
+                                        ),
+                                      );
+                                    } else {
+                                      // ignore: use_build_context_synchronously
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: ((context) =>
+                                              ClientHomePage()),
+                                        ),
+                                      );
+                                    }
                                   } else {
-                                    // Redirecionar para a tela do usuário
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: ((context) => UserScreen()),
+                                    // ignore: use_build_context_synchronously
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                            'Função inválida para este usuário'),
                                       ),
                                     );
                                   }
@@ -223,7 +241,7 @@ class _EmailPassPage extends State<Login> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                       content: Text(
-                                        'Email ou senha errados. Verifique suas informações e tente novamente.',
+                                        'Email ou senha errados',
                                       ),
                                     ),
                                   );
@@ -233,68 +251,40 @@ class _EmailPassPage extends State<Login> {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ForgotPassword()),
+                          );
+                        },
+                        child: const Text(
+                          "Esqueci minha senha",
+                          style:
+                              TextStyle(color: Colors.deepPurple, fontSize: 17),
+                        ),
                       ),
-                      Container(
-                        color: Colors.transparent,
-                        alignment: Alignment.center,
-                        child: InkWell(
-                          child: const Text(
-                            "Esqueceu a senha?",
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xff9586a8),
-                            ),
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: ((context) => ForgotPassword()),
-                              ),
-                            );
-                          },
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => SignUp()),
+                          );
+                        },
+                        child: const Text(
+                          "Não tem uma conta? Cadastre-se!",
+                          style:
+                              TextStyle(color: Colors.deepPurple, fontSize: 18),
                         ),
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-// Exemplo de tela para o administrador
-class AdminScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Tela do Administrador"),
-      ),
-      body: const Center(
-        child: Text("Bem-vindo, Administrador!"),
-      ),
-    );
-  }
-}
-
-// Exemplo de tela para o usuário
-class UserScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Tela do Usuário"),
-      ),
-      body: const Center(
-        child: Text("Bem-vindo, Usuário!"),
       ),
     );
   }

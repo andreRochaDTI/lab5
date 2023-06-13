@@ -1,14 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:myapp/Admin/events/admin-homepage.dart';
 import 'package:myapp/Admin/profile/alterarSenha.dart';
-
+import 'package:myapp/Admin/utils/admin-maps.dart';
 import '../../auth/login.dart';
-import '../events/homepage.dart';
-import '../../utils/maps.dart';
 import 'editarPefil.dart';
 
-class ProfilePage extends StatelessWidget {
+class AdminProfilePage extends StatelessWidget {
   final User? user = FirebaseAuth.instance.currentUser;
 
   @override
@@ -235,7 +234,7 @@ class ProfilePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const MapPage(),
+                    builder: (context) => const AdminMapPage(),
                   ),
                 );
               },
@@ -246,7 +245,7 @@ class ProfilePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ProfilePage(),
+                    builder: (context) => AdminProfilePage(),
                   ),
                 );
               },

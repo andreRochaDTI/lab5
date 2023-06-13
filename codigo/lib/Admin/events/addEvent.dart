@@ -6,12 +6,14 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
+import 'package:myapp/Admin/events/admin-homepage.dart';
+import 'package:myapp/Admin/profile/profile.dart';
 import 'dart:convert';
 
-import '../../utils/maps.dart';
-import 'homepage.dart';
+import 'package:myapp/Admin/utils/admin-maps.dart';
 
 class AddEvent extends StatefulWidget {
   @override
@@ -369,7 +371,7 @@ class _AddEventState extends State<AddEvent> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const MapPage(),
+                    builder: (context) => const AdminMapPage(),
                   ),
                 );
               },
@@ -377,7 +379,12 @@ class _AddEventState extends State<AddEvent> {
             IconButton(
               icon: const Icon(Icons.person, color: Colors.deepPurple),
               onPressed: () {
-                // Implemente a ação desejada para o perfil
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AdminProfilePage(),
+                  ),
+                );
               },
             ),
           ],

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:myapp/Client/events/client-homepage.dart';
 import 'package:myapp/Client/events/my-events-list.dart';
 import 'package:myapp/Admin/profile/profile.dart';
+import 'package:myapp/Client/profile/client-profile.dart';
+import 'package:myapp/Client/utils/maps.dart';
 import 'package:myapp/utils/utils.dart';
-
-import '../../utils/maps.dart';
 
 class MyEvents extends StatefulWidget {
   MyEvents({Key? key}) : super(key: key);
@@ -43,7 +43,7 @@ class _MyEventsState extends State<MyEvents> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const MapPage(),
+                    builder: (context) => const ClientMapPage(),
                   ),
                 );
               },
@@ -54,7 +54,7 @@ class _MyEventsState extends State<MyEvents> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ProfilePage(),
+                    builder: (context) => ClientProfilePage(),
                   ),
                 );
               },
