@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as location;
 import 'package:geocoding/geocoding.dart';
 import 'package:myapp/Client/events/client-homepage.dart';
+import 'package:myapp/Client/events/my-events.dart';
 import 'package:myapp/Client/profile/client-profile.dart';
 
 class ClientMapPage extends StatefulWidget {
@@ -131,7 +132,8 @@ class _MapPageState extends State<ClientMapPage> {
             IconButton(
               icon: const Icon(Icons.event, color: Colors.deepPurple),
               onPressed: () {
-                // Navegue para a página de ingressos aqui
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyEvents()));
               },
             ),
           ],

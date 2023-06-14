@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/Client/events/my-events.dart';
 import 'package:myapp/Client/profile/client-profile.dart';
 import 'package:myapp/Client/events/listEvents.dart';
 import 'package:myapp/Client/utils/maps.dart';
@@ -60,7 +61,8 @@ class _ClientHomePageState extends State<ClientHomePage> {
             IconButton(
               icon: const Icon(Icons.event, color: Colors.deepPurple),
               onPressed: () {
-                // Navegue para a página de ingressos aqui
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyEvents()));
               },
             ),
           ],

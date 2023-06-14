@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:myapp/Client/events/client-homepage.dart';
 import 'package:myapp/Admin/profile/alterarSenha.dart';
+import 'package:myapp/Client/events/my-events.dart';
 import 'package:myapp/Client/utils/maps.dart';
 
 import '../../auth/about-us.dart';
@@ -260,7 +261,8 @@ class ClientProfilePage extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.event, color: Colors.deepPurple),
               onPressed: () {
-                // Navegue para a página de ingressos aqui
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyEvents()));
               },
             ),
           ],

@@ -5,9 +5,9 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class QRCodeScanner extends StatefulWidget {
-  final String eventName;
+  final String eventId;
 
-  QRCodeScanner({required this.eventName});
+  QRCodeScanner({required this.eventId});
 
   @override
   _QRCodeScannerState createState() => _QRCodeScannerState();
@@ -38,7 +38,7 @@ class _QRCodeScannerState extends State<QRCodeScanner> {
       DocumentSnapshot<Object?> qrCodeSnapshot = await users
           .doc(userId)
           .collection('qr_codes')
-          .doc(widget.eventName)
+          .doc(widget.eventId)
           .get();
 
       if (qrCodeSnapshot.exists && qrCodeSnapshot['qrCodeId'] == code) {

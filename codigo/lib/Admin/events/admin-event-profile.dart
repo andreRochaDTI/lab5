@@ -420,11 +420,9 @@ class AdminEventProfile extends StatelessWidget {
                                                   MaterialPageRoute(
                                                       builder: (context) =>
                                                           QRCodeScanner(
-                                                              eventName:
-                                                                  storedocs[
-                                                                          indice]
-                                                                      [
-                                                                      'name'])),
+                                                              eventId: storedocs[
+                                                                      indice]
+                                                                  ['id'])),
                                                 );
                                               },
                                               icon: const Icon(Icons.qr_code),

@@ -29,7 +29,7 @@ class _UpdateEventState extends State<UpdateEvent> {
 
   final _nameController = TextEditingController();
   final _addressController = TextEditingController();
-  final _numberController = TextEditingController();
+  final _addressNumberController = TextEditingController();
   final _cepController = TextEditingController();
   final _dateController = TextEditingController();
   final _timeController = TextEditingController();
@@ -55,7 +55,7 @@ class _UpdateEventState extends State<UpdateEvent> {
       final event = {
         'name': _nameController.text,
         'address': _addressController.text,
-        'number': _numberController.text,
+        'addressNumber': _addressNumberController.text,
         'cep': _cepController.text,
         'image': imageUrl,
         'date': _dateController.text,
@@ -68,7 +68,7 @@ class _UpdateEventState extends State<UpdateEvent> {
 
       _nameController.clear();
       _addressController.clear();
-      _numberController.clear();
+      _addressNumberController.clear();
       _cepController.clear();
       _dateController.clear();
       _timeController.clear();
@@ -153,40 +153,73 @@ class _UpdateEventState extends State<UpdateEvent> {
     }
   }
 
+  Widget _buildImagePreview() {
+    if (_imageFile != null) {
+      return ClipRRect(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(30.0),
+          child: Image.file(
+            _imageFile!,
+            fit: BoxFit.cover,
+            height: 200.0,
+          ),
+        ),
+      );
+    } else {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(10.0),
+        child: Container(
+          width: 200.0,
+          height: 200.0,
+          color: Colors.grey.withOpacity(0.3),
+          child: Stack(
+            alignment: Alignment.center,
+            children: const [
+              Icon(
+                Icons.add,
+                size: 50.0,
+                color: Colors.deepPurple,
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+  }
+
+  Future<void> _selectImage() async {
+    final picker = ImagePicker();
+    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedImage != null) {
+        _imageFile = File(pickedImage.path);
+        _imageSelected = true;
+      } else {
+        _imageSelected = false;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => !_uploading,
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Upload de Evento'),
-        ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.only(
+            top: 50.0,
+            bottom: 16.0,
+            left: 16.0,
+            right: 16.0,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              if (_imageFile != null)
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(30.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.deepPurple.withOpacity(0.7),
-                        width: 5.0,
-                      ),
-                      borderRadius: BorderRadius.circular(40.0),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30.0),
-                      child: Image.file(
-                        _imageFile!,
-                        fit: BoxFit.cover,
-                        height: 200.0,
-                      ),
-                    ),
-                  ),
-                ),
+              GestureDetector(
+                onTap: _selectImage,
+                child: _buildImagePreview(),
+              ),
               const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () async {
@@ -201,14 +234,13 @@ class _UpdateEventState extends State<UpdateEvent> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.purple,
+                  backgroundColor: Colors.deepPurple,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                 ),
-                child: Text(_imageSelected
-                    ? 'Imagem selecionada'
-                    : 'Selecionar imagem'),
+                child: Text(
+                    _imageSelected ? 'Alterar imagem' : 'Selecionar imagem'),
               ),
               const SizedBox(height: 16.0),
               TextFormField(
@@ -249,7 +281,7 @@ class _UpdateEventState extends State<UpdateEvent> {
               ),
               const SizedBox(height: 16.0),
               TextFormField(
-                controller: _numberController,
+                controller: _addressNumberController,
                 decoration: const InputDecoration(
                   labelText: 'Número do local',
                 ),
@@ -278,6 +310,10 @@ class _UpdateEventState extends State<UpdateEvent> {
                 },
                 decoration: const InputDecoration(
                   labelText: 'Data do evento',
+                  suffixIcon: Icon(
+                    Icons.calendar_today,
+                    color: Colors.deepPurple,
+                  ),
                 ),
               ),
               const SizedBox(height: 16.0),
@@ -302,6 +338,7 @@ class _UpdateEventState extends State<UpdateEvent> {
                 },
                 decoration: const InputDecoration(
                   labelText: 'Horário do evento',
+                  suffixIcon: Icon(Icons.access_time, color: Colors.deepPurple),
                 ),
               ),
               const SizedBox(height: 32.0),

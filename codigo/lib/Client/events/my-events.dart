@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/Client/events/client-homepage.dart';
 import 'package:myapp/Client/events/my-events-list.dart';
-import 'package:myapp/Admin/profile/profile.dart';
 import 'package:myapp/Client/profile/client-profile.dart';
 import 'package:myapp/Client/utils/maps.dart';
 import 'package:myapp/utils/utils.dart';
@@ -59,6 +58,13 @@ class _MyEventsState extends State<MyEvents> {
                 );
               },
             ),
+            IconButton(
+              icon: const Icon(Icons.event, color: Colors.deepPurple),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyEvents()));
+              },
+            ),
           ],
         ),
       ),
@@ -114,16 +120,16 @@ class _MyEventsState extends State<MyEvents> {
                               const Divider(),
                               SizedBox(
                                 width: double.infinity,
-                                height: 34,
+                                height: 40,
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'Eventos cadastrados: ',
+                                      'Seus eventos: ',
                                       textAlign: TextAlign.center,
                                       style: SafeGoogleFont(
-                                        'Montserrat',
-                                        fontSize: 23,
+                                        'Roboto',
+                                        fontSize: 30,
                                         fontWeight: FontWeight.w400,
                                         height: 1.7,
                                         color: Colors.deepPurple,
@@ -140,7 +146,7 @@ class _MyEventsState extends State<MyEvents> {
                   ),
                 ),
               ),
-              MyEventsList(),
+              const ClientMyEventList(),
             ],
           ),
         ),

@@ -3,6 +3,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:myapp/Client/events/client-homepage.dart';
+import 'package:myapp/Client/events/my-events.dart';
 import 'package:myapp/Client/profile/client-profile.dart';
 import 'package:myapp/Client/utils/maps.dart';
 import 'dart:ui' as ui;
@@ -52,7 +53,7 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
         .collection('users')
         .doc(user?.uid)
         .collection('qr_codes')
-        .doc(eventName)
+        .doc(widget.id)
         .set({
       'url': qrCodeUrl,
       'eventId': widget.id,
@@ -88,6 +89,16 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
         );
       },
     );
+  }
+
+  Future<void> _addEventToUser(String eventId) async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      DocumentReference userRef =
+          FirebaseFirestore.instance.collection('users').doc(user.uid);
+      await userRef.collection('comprados').doc(eventId).set({});
+    }
   }
 
   @override
@@ -156,7 +167,8 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                 IconButton(
                   icon: const Icon(Icons.event, color: Colors.deepPurple),
                   onPressed: () {
-                    // Navegue para a página de ingressos aqui
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MyEvents()));
                   },
                 ),
               ],
@@ -405,10 +417,67 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                                         height: 50,
                                         child: ElevatedButton(
                                           onPressed: () async {
-                                            String qrData = FirebaseAuth
-                                                .instance.currentUser!.uid;
-                                            String qrCodeUrl =
-                                                await _generateQRCodeUrl();
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title:
+                                                      const Text('Confirmação'),
+                                                  content: const Text(
+                                                      'Você tem certeza que deseja comprar esse evento?'),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop(false);
+                                                      },
+                                                      child: const Text(
+                                                          style: TextStyle(
+                                                              color: Colors.red,
+                                                              fontSize: 20),
+                                                          'Cancelar'),
+                                                    ),
+                                                    TextButton(
+                                                      onPressed: () async {
+                                                        String qrData =
+                                                            FirebaseAuth
+                                                                .instance
+                                                                .currentUser!
+                                                                .uid;
+                                                        String qrCodeUrl =
+                                                            await _generateQRCodeUrl();
+                                                        await _addEventToUser(
+                                                            widget.id);
+                                                        // ignore: use_build_context_synchronously
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                        // ignore: use_build_context_synchronously
+                                                        Navigator.of(context)
+                                                            .pushReplacement(
+                                                          MaterialPageRoute(
+                                                            builder: (BuildContext
+                                                                    context) =>
+                                                                ClientEventProfile(
+                                                              id: widget.id,
+                                                              indice:
+                                                                  widget.indice,
+                                                              storedocs: widget
+                                                                  .storedocs,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                      child: const Text(
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .deepPurple,
+                                                              fontSize: 20),
+                                                          'Confirmar'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
                                           },
                                           style: ElevatedButton.styleFrom(
                                             primary: Colors.deepPurple,
