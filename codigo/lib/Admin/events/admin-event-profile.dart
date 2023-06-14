@@ -31,7 +31,7 @@ class AdminEventProfile extends StatelessWidget {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
+            return const CircularProgressIndicator(color: Color(0xFF4527A0));
           }
 
           if (!snapshot.hasData || !snapshot.data!.exists) {
@@ -93,7 +93,7 @@ class AdminEventProfile extends StatelessWidget {
                                             fontSize: 22,
                                             fontWeight: FontWeight.w700,
                                             height: 1,
-                                            color: Colors.deepPurple,
+                                            color: const Color(0xFF4527A0),
                                           ),
                                           maxLines: 2,
                                         ),
@@ -103,7 +103,7 @@ class AdminEventProfile extends StatelessWidget {
                                       child: PopupMenuButton<String>(
                                         icon: const Icon(
                                           Icons.more_vert,
-                                          color: Colors.deepPurple,
+                                          color: const Color(0xFF4527A0),
                                         ),
                                         onSelected: (value) {
                                           if (value == 'edit') {
@@ -121,23 +121,86 @@ class AdminEventProfile extends StatelessWidget {
                                               context: context,
                                               builder: (BuildContext context) {
                                                 return AlertDialog(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20.0),
+                                                  ),
+                                                  backgroundColor:
+                                                      const Color(0xFF4527A0),
                                                   title: const Text(
-                                                      'Deletar evento'),
+                                                    'Deletar evento',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 20,
+                                                      fontFamily: 'Roboto',
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                  ),
                                                   content: const Text(
                                                     'Tem certeza que deseja deletar este evento?',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 18,
+                                                      fontFamily: 'Roboto',
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
                                                   ),
                                                   actions: <Widget>[
-                                                    TextButton(
+                                                    ElevatedButton(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        backgroundColor:
+                                                            Colors.white,
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      20.0),
+                                                        ),
+                                                      ),
                                                       child: const Text(
-                                                          'Cancelar'),
+                                                        'Cancelar',
+                                                        style: TextStyle(
+                                                          color: Colors.red,
+                                                          fontSize: 20,
+                                                          fontFamily: 'Roboto',
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                      ),
                                                       onPressed: () {
                                                         Navigator.of(context)
                                                             .pop();
                                                       },
                                                     ),
-                                                    TextButton(
-                                                      child:
-                                                          const Text('Deletar'),
+                                                    ElevatedButton(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        backgroundColor:
+                                                            Colors.white,
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      20.0),
+                                                        ),
+                                                      ),
+                                                      child: const Text(
+                                                        'Deletar',
+                                                        style: TextStyle(
+                                                          color: const Color(
+                                                              0xFF4527A0),
+                                                          fontSize: 20,
+                                                          fontFamily: 'Roboto',
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                      ),
                                                       onPressed: () {
                                                         deletedEvent =
                                                             storedocs[indice];
@@ -180,12 +243,13 @@ class AdminEventProfile extends StatelessWidget {
                                             child: ListTile(
                                               leading: Icon(
                                                 Icons.edit,
-                                                color: Colors.deepPurple,
+                                                color: const Color(0xFF4527A0),
                                               ),
                                               title: Text(
                                                 'Editar',
                                                 style: TextStyle(
-                                                  color: Colors.deepPurple,
+                                                  color:
+                                                      const Color(0xFF4527A0),
                                                 ),
                                               ),
                                             ),
@@ -233,7 +297,7 @@ class AdminEventProfile extends StatelessWidget {
                                     fontWeight: FontWeight.w700,
                                     height: 1,
                                     letterSpacing: -0.4099999964,
-                                    color: Colors.deepPurple,
+                                    color: const Color(0xFF4527A0),
                                   ),
                                 ),
                                 const SizedBox(height: 50),
@@ -255,7 +319,7 @@ class AdminEventProfile extends StatelessWidget {
                                         fontSize: 20,
                                         fontWeight: FontWeight.w700,
                                         height: 1.5,
-                                        color: Colors.deepPurple,
+                                        color: const Color(0xFF4527A0),
                                       ),
                                     ),
                                     const Spacer(),
@@ -291,7 +355,7 @@ class AdminEventProfile extends StatelessWidget {
                                           fontSize: 20,
                                           fontWeight: FontWeight.w700,
                                           height: 1.5,
-                                          color: Colors.deepPurple,
+                                          color: const Color(0xFF4527A0),
                                         ),
                                       ),
                                     ),
@@ -332,7 +396,7 @@ class AdminEventProfile extends StatelessWidget {
                                             fontWeight: FontWeight.w700,
                                             height: 1.5,
                                             letterSpacing: -0.408,
-                                            color: Colors.deepPurple,
+                                            color: const Color(0xFF4527A0),
                                           ),
                                         ),
                                       ],
@@ -365,7 +429,7 @@ class AdminEventProfile extends StatelessWidget {
                                             fontSize: 20,
                                             fontWeight: FontWeight.w700,
                                             height: 1,
-                                            color: Colors.deepPurple,
+                                            color: const Color(0xFF4527A0),
                                           ),
                                         ),
                                       ),
@@ -427,7 +491,7 @@ class AdminEventProfile extends StatelessWidget {
                                               },
                                               icon: const Icon(Icons.qr_code),
                                               iconSize: 60.0,
-                                              color: Colors.deepPurple,
+                                              color: const Color(0xFF4527A0),
                                             ),
                                             const SizedBox(height: 2.0),
                                             const Text(
@@ -436,7 +500,7 @@ class AdminEventProfile extends StatelessWidget {
                                               style: TextStyle(
                                                 fontSize: 15.0,
                                                 fontWeight: FontWeight.w700,
-                                                color: Colors.deepPurple,
+                                                color: const Color(0xFF4527A0),
                                               ),
                                             ),
                                           ],
@@ -460,7 +524,8 @@ class AdminEventProfile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.home, color: Colors.deepPurple),
+                    icon:
+                        const Icon(Icons.home, color: const Color(0xFF4527A0)),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -471,7 +536,7 @@ class AdminEventProfile extends StatelessWidget {
                     },
                   ),
                   IconButton(
-                    icon: const Icon(Icons.map, color: Colors.deepPurple),
+                    icon: const Icon(Icons.map, color: const Color(0xFF4527A0)),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -482,7 +547,8 @@ class AdminEventProfile extends StatelessWidget {
                     },
                   ),
                   IconButton(
-                    icon: const Icon(Icons.person, color: Colors.deepPurple),
+                    icon: const Icon(Icons.person,
+                        color: const Color(0xFF4527A0)),
                     onPressed: () {
                       Navigator.push(
                         context,

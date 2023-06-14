@@ -18,7 +18,8 @@ class AdminProfilePage extends StatelessWidget {
             FirebaseFirestore.instance.collection('users').doc(user?.uid).get(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+                child: CircularProgressIndicator(color: Color(0xFF4527A0)));
           }
 
           if (snapshot.hasError) {
@@ -80,7 +81,7 @@ class AdminProfilePage extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
                       border: Border.all(
-                        color: Colors.deepPurple,
+                        color: const Color(0xFF4527A0),
                         width: 0.1,
                       ),
                     ),
@@ -90,7 +91,7 @@ class AdminProfilePage extends StatelessWidget {
                       child: Text(
                         'Editar Perfil',
                         style: TextStyle(
-                          color: Colors.deepPurple,
+                          color: const Color(0xFF4527A0),
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
                         ),
@@ -126,14 +127,14 @@ class AdminProfilePage extends StatelessWidget {
                         Text(
                           'Alterar Senha',
                           style: TextStyle(
-                            color: Colors.deepPurple,
+                            color: const Color(0xFF4527A0),
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Icon(
                           Icons.arrow_forward,
-                          color: Colors.deepPurple,
+                          color: const Color(0xFF4527A0),
                         ),
                       ],
                     ),
@@ -150,14 +151,14 @@ class AdminProfilePage extends StatelessWidget {
                         Text(
                           'Sobre nós',
                           style: TextStyle(
-                            color: Colors.deepPurple,
+                            color: const Color(0xFF4527A0),
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Icon(
                           Icons.arrow_forward,
-                          color: Colors.deepPurple,
+                          color: const Color(0xFF4527A0),
                         ),
                       ],
                     ),
@@ -170,20 +171,57 @@ class AdminProfilePage extends StatelessWidget {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: const Text('Sair'),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          backgroundColor: const Color(0xFF4527A0),
+                          title: const Text(
+                            'Sair',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                           content: const Text(
-                              'Tem certeza que deseja desconectar sua conta?'),
+                            'Tem certeza que deseja desconectar sua conta?',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                           actions: <Widget>[
-                            TextButton(
-                              child: const Text('Cancelar'),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                              ),
+                              child: const Text('Cancelar',
+                                  style: TextStyle(
+                                      color: const Color(0xFF4527A0),
+                                      fontSize: 17)),
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
                             ),
-                            TextButton(
-                              child: const Text('Sair'),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                              ),
+                              child: const Text('Sair',
+                                  style: TextStyle(
+                                      color: Colors.red, fontSize: 17)),
                               onPressed: () async {
                                 await FirebaseAuth.instance.signOut();
+                                // ignore: use_build_context_synchronously
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -216,7 +254,7 @@ class AdminProfilePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
-              icon: const Icon(Icons.home, color: Colors.deepPurple),
+              icon: const Icon(Icons.home, color: const Color(0xFF4527A0)),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -227,7 +265,7 @@ class AdminProfilePage extends StatelessWidget {
               },
             ),
             IconButton(
-              icon: const Icon(Icons.map, color: Colors.deepPurple),
+              icon: const Icon(Icons.map, color: const Color(0xFF4527A0)),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -238,7 +276,7 @@ class AdminProfilePage extends StatelessWidget {
               },
             ),
             IconButton(
-              icon: const Icon(Icons.person, color: Colors.deepPurple),
+              icon: const Icon(Icons.person, color: const Color(0xFF4527A0)),
               onPressed: () {
                 Navigator.push(
                   context,

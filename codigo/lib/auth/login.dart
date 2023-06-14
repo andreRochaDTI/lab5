@@ -55,16 +55,17 @@ class _EmailPassPage extends State<Login> {
                             keyboardType: TextInputType.emailAddress,
                             decoration: const InputDecoration(
                               labelText: "Email",
-                              labelStyle: TextStyle(color: Colors.deepPurple),
+                              labelStyle:
+                                  TextStyle(color: const Color(0xFF4527A0)),
                               border: OutlineInputBorder(
                                 borderSide:
-                                    BorderSide(color: Colors.deepPurple),
+                                    BorderSide(color: const Color(0xFF4527A0)),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(20)),
                               ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide:
-                                    BorderSide(color: Colors.deepPurple),
+                                    BorderSide(color: const Color(0xFF4527A0)),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(20)),
                               ),
@@ -95,17 +96,17 @@ class _EmailPassPage extends State<Login> {
                             obscureText: !passwordVisible,
                             decoration: InputDecoration(
                               labelText: "Senha",
-                              labelStyle:
-                                  const TextStyle(color: Colors.deepPurple),
+                              labelStyle: const TextStyle(
+                                  color: const Color(0xFF4527A0)),
                               border: const OutlineInputBorder(
                                 borderSide:
-                                    BorderSide(color: Colors.deepPurple),
+                                    BorderSide(color: const Color(0xFF4527A0)),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(20)),
                               ),
                               enabledBorder: const OutlineInputBorder(
                                 borderSide:
-                                    BorderSide(color: Colors.deepPurple),
+                                    BorderSide(color: const Color(0xFF4527A0)),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(20)),
                               ),
@@ -114,7 +115,7 @@ class _EmailPassPage extends State<Login> {
                                   passwordVisible
                                       ? Icons.visibility
                                       : Icons.visibility_off,
-                                  color: Colors.deepPurple,
+                                  color: const Color(0xFF4527A0),
                                 ),
                                 onPressed: () {
                                   setState(() {
@@ -139,14 +140,17 @@ class _EmailPassPage extends State<Login> {
                         DropdownButtonFormField<String>(
                           decoration: const InputDecoration(
                             labelText: 'Função',
-                            labelStyle: TextStyle(color: Colors.deepPurple),
+                            labelStyle:
+                                TextStyle(color: const Color(0xFF4527A0)),
                             border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.deepPurple),
+                              borderSide:
+                                  BorderSide(color: const Color(0xFF4527A0)),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
                             ),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.deepPurple),
+                              borderSide:
+                                  BorderSide(color: const Color(0xFF4527A0)),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
                             ),
@@ -185,7 +189,7 @@ class _EmailPassPage extends State<Login> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
                               gradient: LinearGradient(
-                                colors: [Colors.green, Colors.deepPurple],
+                                colors: [Colors.green, const Color(0xFF4527A0)],
                                 begin: Alignment.centerLeft,
                                 end: Alignment.bottomRight,
                               ),
@@ -274,7 +278,7 @@ class _EmailPassPage extends State<Login> {
                           child: const Text(
                             "Esqueci minha senha",
                             style: TextStyle(
-                                color: Colors.deepPurple, fontSize: 17),
+                                color: const Color(0xFF4527A0), fontSize: 17),
                           ),
                         ),
                         TextButton(
@@ -287,7 +291,7 @@ class _EmailPassPage extends State<Login> {
                           child: const Text(
                             "Não tem uma conta? Cadastre-se!",
                             style: TextStyle(
-                                color: Colors.deepPurple, fontSize: 18),
+                                color: const Color(0xFF4527A0), fontSize: 18),
                           ),
                         ),
                       ],

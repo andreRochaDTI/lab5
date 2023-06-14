@@ -27,7 +27,7 @@ class _AdminEventsListState extends State<AdminEventsList> {
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(color: Color(0xFF4527A0)),
           );
         }
         final List storedocs = [];
@@ -113,7 +113,7 @@ class _AdminEventsListState extends State<AdminEventsList> {
                                           fontSize: 24 * ffem,
                                           fontWeight: FontWeight.w700,
                                           fontStyle: FontStyle.italic,
-                                          color: Colors.deepPurple,
+                                          color: const Color(0xFF4527A0),
                                         ),
                                       ),
                                     ),
@@ -151,7 +151,7 @@ class _AdminEventsListState extends State<AdminEventsList> {
                                           fontWeight: FontWeight.w500,
                                           height: 0.9166666667 * ffem / fem,
                                           letterSpacing: 1 * fem,
-                                          color: Colors.deepPurple,
+                                          color: const Color(0xFF4527A0),
                                         ),
                                       ),
                                     ),

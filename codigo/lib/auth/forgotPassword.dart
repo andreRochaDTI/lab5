@@ -32,7 +32,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
             children: <Widget>[
               const Text(
                 "Insira seu email para recuperar a senha",
-                style: TextStyle(fontSize: 18, color: Colors.deepPurple),
+                style: TextStyle(fontSize: 18, color: Color(0xFF4527A0)),
               ),
               const SizedBox(height: 20),
               Center(
@@ -48,14 +48,14 @@ class ForgotPasswordState extends State<ForgotPassword> {
                           keyboardType: TextInputType.emailAddress,
                           decoration: const InputDecoration(
                             labelText: "Email",
-                            labelStyle: TextStyle(color: Colors.deepPurple),
+                            labelStyle: TextStyle(color: Color(0xFF4527A0)),
                             border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.deepPurple),
+                              borderSide: BorderSide(color: Color(0xFF4527A0)),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
                             ),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.deepPurple),
+                              borderSide: BorderSide(color: Color(0xFF4527A0)),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
                             ),
@@ -81,7 +81,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                         gradient: LinearGradient(
-                          colors: [Colors.deepPurpleAccent, Colors.deepPurple],
+                          colors: [Color(0xFF4527A0), Color(0xFF4527A0)],
                           begin: Alignment.centerLeft,
                           end: Alignment.bottomRight,
                         ),
@@ -144,7 +144,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
                       child: const Text(
                         "Entrar",
                         style:
-                            TextStyle(color: Colors.deepPurple, fontSize: 20),
+                            TextStyle(color: Color(0xFF4527A0), fontSize: 20),
                       ),
                     ),
                   ],

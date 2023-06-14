@@ -45,14 +45,33 @@ class _AddEventState extends State<AddEvent> {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text('Erro'),
-            content: const Text('CEP não encontrado'),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            backgroundColor: const Color(0xFF4527A0),
+            content: const Text(
+              'CEP não encontrado.',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w500,
+              ),
+            ),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text('OK'),
+                child: const Text(
+                  'OK',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
             ],
           ),
@@ -70,14 +89,33 @@ class _AddEventState extends State<AddEvent> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Erro'),
-          content: const Text('Falha ao buscar o endereço'),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          backgroundColor: const Color(0xFF4527A0),
+          content: const Text(
+            'Falha ao buscar o endereço.',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.w500,
+            ),
+          ),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('OK'),
+              child: const Text(
+                'OK',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ),
           ],
         ),
@@ -130,14 +168,29 @@ class _AddEventState extends State<AddEvent> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Erro'),
-          content: Text(e.toString()),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          backgroundColor: const Color(0xFF4527A0),
+          content: const Text('CEP incompleto.',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500)),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('OK'),
+              child: const Text(
+                'OK',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ),
           ],
         ),
@@ -170,7 +223,7 @@ class _AddEventState extends State<AddEvent> {
               Icon(
                 Icons.add,
                 size: 50.0,
-                color: Colors.deepPurple,
+                color: const Color(0xFF4527A0),
               ),
             ],
           ),
@@ -224,7 +277,7 @@ class _AddEventState extends State<AddEvent> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.deepPurple,
+                backgroundColor: const Color(0xFF4527A0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
                 ),
@@ -252,7 +305,7 @@ class _AddEventState extends State<AddEvent> {
                     padding: EdgeInsets.all(8.0),
                     child: Icon(
                       Icons.search,
-                      color: Colors.deepPurple,
+                      color: const Color(0xFF4527A0),
                     ),
                   ),
                 ),
@@ -303,7 +356,7 @@ class _AddEventState extends State<AddEvent> {
                 labelText: 'Data do evento',
                 suffixIcon: Icon(
                   Icons.calendar_today,
-                  color: Colors.deepPurple,
+                  color: const Color(0xFF4527A0),
                 ),
               ),
             ),
@@ -329,20 +382,21 @@ class _AddEventState extends State<AddEvent> {
               },
               decoration: const InputDecoration(
                 labelText: 'Horário do evento',
-                suffixIcon: Icon(Icons.access_time, color: Colors.deepPurple),
+                suffixIcon:
+                    Icon(Icons.access_time, color: const Color(0xFF4527A0)),
               ),
             ),
             const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: _uploading ? null : _saveEventInformation,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.deepPurple,
+                backgroundColor: const Color(0xFF4527A0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
                 ),
               ),
               child: _uploading
-                  ? const CircularProgressIndicator()
+                  ? const CircularProgressIndicator(color: Color(0xFF4527A0))
                   : const Text('Adicionar evento'),
             ),
           ],
@@ -353,7 +407,7 @@ class _AddEventState extends State<AddEvent> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
-              icon: const Icon(Icons.home, color: Colors.deepPurple),
+              icon: const Icon(Icons.home, color: const Color(0xFF4527A0)),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -364,7 +418,7 @@ class _AddEventState extends State<AddEvent> {
               },
             ),
             IconButton(
-              icon: const Icon(Icons.map, color: Colors.deepPurple),
+              icon: const Icon(Icons.map, color: const Color(0xFF4527A0)),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -375,7 +429,7 @@ class _AddEventState extends State<AddEvent> {
               },
             ),
             IconButton(
-              icon: const Icon(Icons.person, color: Colors.deepPurple),
+              icon: const Icon(Icons.person, color: const Color(0xFF4527A0)),
               onPressed: () {
                 Navigator.push(
                   context,
