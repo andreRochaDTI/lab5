@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/services.dart';
+import 'package:myapp/Client/profile/client-profile.dart';
 
 class EditProfilePage extends StatefulWidget {
   @override
@@ -119,6 +120,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           .doc(_user!.uid)
           .update({'name': _name, 'email': _email});
 
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Perfil atualizado com sucesso')),
       );
@@ -233,7 +235,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     },
               child: _isLoading
                   ? const CircularProgressIndicator()
-                  : const Text('Salvar'),
+                  : const Text('Salvar', style: TextStyle(fontSize: 15)),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ClientProfilePage()),
+                );
+              },
+              child: const Text(
+                "Voltar",
+                style: TextStyle(color: Colors.deepPurple, fontSize: 15),
+              ),
             ),
           ],
         ),

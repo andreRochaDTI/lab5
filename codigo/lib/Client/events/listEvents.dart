@@ -25,9 +25,6 @@ class _ClientEventListState extends State<ClientEventList> {
     return StreamBuilder<QuerySnapshot>(
       stream: eventStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          print('Something went wrong');
-        }
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
             child: CircularProgressIndicator(),
@@ -112,7 +109,7 @@ class _ClientEventListState extends State<ClientEventList> {
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         style: SafeGoogleFont(
-                                          'Montserrat',
+                                          'Roboto',
                                           fontSize: 24 * ffem,
                                           fontWeight: FontWeight.w700,
                                           height: 0.9166666667 * ffem / fem,
@@ -129,10 +126,10 @@ class _ClientEventListState extends State<ClientEventList> {
                                         child: Text(
                                           storedocs[i]['address'],
                                           textAlign: TextAlign.left,
-                                          maxLines: 3,
+                                          maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
                                           style: SafeGoogleFont(
-                                            'Montserrat',
+                                            'Roboto',
                                             fontSize: 15 * ffem,
                                             fontWeight: FontWeight.w500,
                                             height: 1.375 * ffem / fem,
@@ -151,7 +148,7 @@ class _ClientEventListState extends State<ClientEventList> {
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: SafeGoogleFont(
-                                          'Montserrat',
+                                          'Roboto',
                                           fontSize: 15,
                                           fontWeight: FontWeight.w500,
                                           height: 0.9166666667 * ffem / fem,

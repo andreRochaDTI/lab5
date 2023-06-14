@@ -34,7 +34,6 @@ class _MapPageState extends State<AdminMapPage> {
         locationData = await _location.getLocation();
       } catch (e) {
         locationData = null;
-        print('Could not get the location: $e');
       }
 
       if (!mounted) return;
@@ -53,8 +52,6 @@ class _MapPageState extends State<AdminMapPage> {
             'longitude': longitude,
           });
         });
-      } else {
-        print('Could not find the location for the address: $_targetAddress');
       }
     }
   }

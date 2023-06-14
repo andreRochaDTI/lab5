@@ -128,7 +128,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
                                       'Eventos disponíveis: ',
                                       textAlign: TextAlign.center,
                                       style: SafeGoogleFont(
-                                        'Montserrat',
+                                        'Roboto',
                                         fontSize: 23,
                                         fontWeight: FontWeight.w400,
                                         height: 1.7,

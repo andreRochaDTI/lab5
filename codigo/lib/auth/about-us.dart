@@ -24,7 +24,7 @@ class About extends StatelessWidget {
                   child: RichText(
                     text: TextSpan(
                       style: SafeGoogleFont(
-                        'Montserrat',
+                        'Roboto',
                         fontSize: 17,
                         fontWeight: FontWeight.w400,
                         height: 1.5,
@@ -35,7 +35,7 @@ class About extends StatelessWidget {
                         TextSpan(
                           text: 'Seja bem-vindo ao E-vento!',
                           style: SafeGoogleFont(
-                            'Montserrat',
+                            'Roboto',
                             fontSize: 24,
                             fontWeight: FontWeight.w700,
                             height: 1.0625,
@@ -46,7 +46,7 @@ class About extends StatelessWidget {
                         TextSpan(
                           text: ' \n',
                           style: SafeGoogleFont(
-                            'Montserrat',
+                            'Roboto',
                             fontSize: 24,
                             fontWeight: FontWeight.w400,
                             height: 1.0625,
@@ -57,7 +57,7 @@ class About extends StatelessWidget {
                         TextSpan(
                           text: '\n',
                           style: SafeGoogleFont(
-                            'Montserrat',
+                            'Roboto',
                             fontSize: 17,
                             fontWeight: FontWeight.w400,
                             height: 1.5,
@@ -69,7 +69,7 @@ class About extends StatelessWidget {
                           text:
                               'Com nosso aplicativo fácil de usar, você pode descobrir as melhores festas que estão acontecendo na sua cidade e na região, e também pode criar suas próprias festas para compartilhar com seus amigos.\n\nNosso aplicativo permite que você explore eventos e festas de vários tipos e estilos, desde festas de aniversário e casamentos até festas temáticas, festivais e shows. Você pode acompanhar as atualizações dos eventos que você está interessado, incluindo informações sobre datas, horários, preços, localização e detalhes sobre a festa. Aproveite!',
                           style: SafeGoogleFont(
-                            'Montserrat',
+                            'Roboto',
                             fontSize: 17,
                             fontWeight: FontWeight.w400,
                             height: 2,

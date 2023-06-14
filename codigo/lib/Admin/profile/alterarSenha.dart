@@ -45,13 +45,11 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             },
           );
         } else {
-          // Usuário não está autenticado
           setState(() {
             _errorMessage = 'Usuário não autenticado.';
           });
         }
       } catch (e) {
-        // Ocorreu um erro ao alterar a senha
         setState(() {
           _errorMessage = 'Erro ao alterar a senha: $e';
         });

@@ -210,7 +210,7 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                                         child: Text(
                                           eventData['name'] ?? '',
                                           style: const TextStyle(
-                                            fontFamily: 'Montserrat',
+                                            fontFamily: 'Roboto',
                                             fontSize: 22,
                                             fontWeight: FontWeight.w700,
                                             height: 1,
@@ -265,7 +265,7 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                                 Text(
                                   'Informações:',
                                   style: SafeGoogleFont(
-                                    'Montserrat',
+                                    'Roboto',
                                     fontSize: 22,
                                     fontWeight: FontWeight.w700,
                                     height: 1,
@@ -288,7 +288,7 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                                     Text(
                                       'Data:',
                                       style: SafeGoogleFont(
-                                        'Montserrat',
+                                        'Roboto',
                                         fontSize: 20,
                                         fontWeight: FontWeight.w700,
                                         height: 1.5,
@@ -299,7 +299,7 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                                     Text(
                                       eventData['date'] ?? '',
                                       style: SafeGoogleFont(
-                                        'Montserrat',
+                                        'Roboto',
                                         fontSize: 18,
                                         fontWeight: FontWeight.w500,
                                         height: 1.5,
@@ -324,7 +324,7 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                                       child: Text(
                                         'Hora: ',
                                         style: SafeGoogleFont(
-                                          'Montserrat',
+                                          'Roboto',
                                           fontSize: 20,
                                           fontWeight: FontWeight.w700,
                                           height: 1.5,
@@ -337,7 +337,7 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                                       child: Text(
                                         eventData['time'] ?? '',
                                         style: SafeGoogleFont(
-                                          'Montserrat',
+                                          'Roboto',
                                           fontSize: 18,
                                           fontWeight: FontWeight.w500,
                                           height: 1.5,
@@ -364,7 +364,7 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                                         Text(
                                           'Endereço: ',
                                           style: SafeGoogleFont(
-                                            'Montserrat',
+                                            'Roboto',
                                             fontSize: 20,
                                             fontWeight: FontWeight.w700,
                                             height: 1.5,
@@ -378,7 +378,7 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                                     Text(
                                       '${eventData['address'].split(',')[0].trim()} ${eventData['addressNumber']} ${eventData['address'].split(',')[1].trim()} ${eventData['address'].split(',')[2].trim()} ${eventData['address'].split(',')[3].trim()}',
                                       style: SafeGoogleFont(
-                                        'Montserrat',
+                                        'Roboto',
                                         fontSize: 18,
                                         fontWeight: FontWeight.w500,
                                         height: 1.5,
@@ -510,7 +510,7 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                                                   'O QR Code lido perderá o valor após ser validado.',
                                                   textAlign: TextAlign.center,
                                                   style: SafeGoogleFont(
-                                                    'Montserrat',
+                                                    'Roboto',
                                                     fontSize: 13,
                                                     fontWeight: FontWeight.w400,
                                                     height: 1.5,
