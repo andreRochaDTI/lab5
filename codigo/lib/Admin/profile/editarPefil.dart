@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -137,7 +136,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: const Color(0xFF4527A0),
         title: const Text('Editar Perfil'),
       ),
       body: Padding(
@@ -214,7 +213,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             const SizedBox(height: 16.0),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.deepPurple,
+                backgroundColor: const Color(0xFF4527A0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
@@ -232,7 +231,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       }
                     },
               child: _isLoading
-                  ? const CircularProgressIndicator()
+                  ? const CircularProgressIndicator(color: Color(0xFF4527A0))
                   : const Text('Salvar'),
             ),
           ],

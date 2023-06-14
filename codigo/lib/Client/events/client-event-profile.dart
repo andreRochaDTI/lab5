@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:myapp/Client/events/client-homepage.dart';
 import 'package:myapp/Client/events/my-events.dart';
 import 'package:myapp/Client/profile/client-profile.dart';
-import 'package:myapp/Client/utils/maps.dart';
+import 'package:myapp/Client/utils/client-maps.dart';
 import 'dart:ui' as ui;
 import 'package:qr_flutter/qr_flutter.dart';
 import '../../utils/utils.dart';
@@ -23,8 +23,6 @@ class ClientEventProfile extends StatefulWidget {
 }
 
 class _ClientEventProfileState extends State<ClientEventProfile> {
-  late Future<String> _qrCodeUrlFuture;
-
   Future<String> _generateQRCodeUrl() async {
     User? user = FirebaseAuth.instance.currentUser;
 
@@ -33,8 +31,10 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
     final qrCode = QrPainter(
       data: qrData,
       version: QrVersions.auto,
-      color: const Color(0xff000000),
-      emptyColor: const Color(0xffffffff),
+      // ignore: deprecated_member_use
+      color: Colors.white,
+      // ignore: deprecated_member_use
+      emptyColor: const Color(0xFF4527A0),
       errorCorrectionLevel: QrErrorCorrectLevel.L,
     );
 
@@ -68,14 +68,45 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        var eventName = widget.storedocs[widget.indice]['name'];
         return AlertDialog(
-          title: const Text('QR Code'),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          backgroundColor: const Color(0xFF4527A0),
+          title: const Text(
+            'E-vento',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 25,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.network(qrCodeUrl),
-              const SizedBox(height: 8),
-              const Text('Aqui está o seu QR code!'),
+              const SizedBox(height: 14),
+              const Text(
+                'Aqui está o QR code para:',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                ' $eventName',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 25,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ],
           ),
           actions: [
@@ -83,7 +114,10 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Fechar'),
+              child: const Text(
+                'Fechar',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
             ),
           ],
         );
@@ -116,7 +150,7 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return const CircularProgressIndicator(color: Color(0xFF4527A0));
         }
 
         if (!snapshot.hasData || !snapshot.data!.exists) {
@@ -132,7 +166,7 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 IconButton(
-                  icon: const Icon(Icons.home, color: Colors.deepPurple),
+                  icon: const Icon(Icons.home, color: const Color(0xFF4527A0)),
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -143,7 +177,7 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                   },
                 ),
                 IconButton(
-                  icon: const Icon(Icons.map, color: Colors.deepPurple),
+                  icon: const Icon(Icons.map, color: const Color(0xFF4527A0)),
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -154,7 +188,8 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                   },
                 ),
                 IconButton(
-                  icon: const Icon(Icons.person, color: Colors.deepPurple),
+                  icon:
+                      const Icon(Icons.person, color: const Color(0xFF4527A0)),
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -165,7 +200,7 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                   },
                 ),
                 IconButton(
-                  icon: const Icon(Icons.event, color: Colors.deepPurple),
+                  icon: const Icon(Icons.event, color: const Color(0xFF4527A0)),
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => MyEvents()));
@@ -214,7 +249,7 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                                             fontSize: 22,
                                             fontWeight: FontWeight.w700,
                                             height: 1,
-                                            color: Colors.deepPurple,
+                                            color: const Color(0xFF4527A0),
                                           ),
                                           maxLines: 2,
                                         ),
@@ -224,7 +259,7 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                                       child: PopupMenuButton<String>(
                                         icon: const Icon(
                                           Icons.more_vert,
-                                          color: Colors.deepPurple,
+                                          color: const Color(0xFF4527A0),
                                         ),
                                         onSelected: (value) {
                                           if (value == 'mapa') {
@@ -270,7 +305,7 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                                     fontWeight: FontWeight.w700,
                                     height: 1,
                                     letterSpacing: -0.4099999964,
-                                    color: Colors.deepPurple,
+                                    color: const Color(0xFF4527A0),
                                   ),
                                 ),
                                 const SizedBox(height: 50),
@@ -292,7 +327,7 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                                         fontSize: 20,
                                         fontWeight: FontWeight.w700,
                                         height: 1.5,
-                                        color: Colors.deepPurple,
+                                        color: const Color(0xFF4527A0),
                                       ),
                                     ),
                                     const Spacer(),
@@ -328,7 +363,7 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                                           fontSize: 20,
                                           fontWeight: FontWeight.w700,
                                           height: 1.5,
-                                          color: Colors.deepPurple,
+                                          color: const Color(0xFF4527A0),
                                         ),
                                       ),
                                     ),
@@ -369,7 +404,7 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                                             fontWeight: FontWeight.w700,
                                             height: 1.5,
                                             letterSpacing: -0.408,
-                                            color: Colors.deepPurple,
+                                            color: const Color(0xFF4527A0),
                                           ),
                                         ),
                                       ],
@@ -405,7 +440,8 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
 
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
-                                      return const CircularProgressIndicator();
+                                      return const CircularProgressIndicator(
+                                          color: Color(0xFF4527A0));
                                     }
 
                                     if (!snapshot.hasData ||
@@ -421,23 +457,61 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                                               context: context,
                                               builder: (BuildContext context) {
                                                 return AlertDialog(
-                                                  title:
-                                                      const Text('Confirmação'),
+                                                  backgroundColor:
+                                                      const Color(0xFF4527A0),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20.0),
+                                                  ),
+                                                  title: const Text(
+                                                    'Confirmação',
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
                                                   content: const Text(
-                                                      'Você tem certeza que deseja comprar esse evento?'),
+                                                    'Você tem certeza que deseja comprar esse evento?',
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 18),
+                                                  ),
                                                   actions: [
-                                                    TextButton(
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop(false);
-                                                      },
-                                                      child: const Text(
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 8.0),
+                                                      child: ElevatedButton(
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                        style: ButtonStyle(
+                                                          shape: MaterialStateProperty
+                                                              .all<
+                                                                  RoundedRectangleBorder>(
+                                                            RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20.0),
+                                                            ),
+                                                          ),
+                                                          backgroundColor:
+                                                              MaterialStateProperty
+                                                                  .all<Color>(
+                                                            Colors.white,
+                                                          ),
+                                                        ),
+                                                        child: const Text(
+                                                          'Cancelar',
                                                           style: TextStyle(
-                                                              color: Colors.red,
-                                                              fontSize: 20),
-                                                          'Cancelar'),
+                                                            color: Colors.red,
+                                                            fontSize: 20,
+                                                          ),
+                                                        ),
+                                                      ),
                                                     ),
-                                                    TextButton(
+                                                    ElevatedButton(
                                                       onPressed: () async {
                                                         String qrData =
                                                             FirebaseAuth
@@ -448,10 +522,8 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                                                             await _generateQRCodeUrl();
                                                         await _addEventToUser(
                                                             widget.id);
-                                                        // ignore: use_build_context_synchronously
                                                         Navigator.of(context)
                                                             .pop();
-                                                        // ignore: use_build_context_synchronously
                                                         Navigator.of(context)
                                                             .pushReplacement(
                                                           MaterialPageRoute(
@@ -467,12 +539,31 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                                                           ),
                                                         );
                                                       },
+                                                      style: ButtonStyle(
+                                                        shape: MaterialStateProperty
+                                                            .all<
+                                                                RoundedRectangleBorder>(
+                                                          RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20.0),
+                                                          ),
+                                                        ),
+                                                        backgroundColor:
+                                                            MaterialStateProperty
+                                                                .all<Color>(
+                                                          Colors.white,
+                                                        ),
+                                                      ),
                                                       child: const Text(
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .deepPurple,
-                                                              fontSize: 20),
-                                                          'Confirmar'),
+                                                        'Confirmar',
+                                                        style: TextStyle(
+                                                          color: const Color(
+                                                              0xFF4527A0),
+                                                          fontSize: 20,
+                                                        ),
+                                                      ),
                                                     ),
                                                   ],
                                                 );
@@ -480,7 +571,8 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                                             );
                                           },
                                           style: ElevatedButton.styleFrom(
-                                            primary: Colors.deepPurple,
+                                            backgroundColor:
+                                                const Color(0xFF4527A0),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(10),
@@ -540,8 +632,8 @@ class _ClientEventProfileState extends State<ClientEventProfile> {
                                                           icon: const Icon(
                                                               Icons.qr_code),
                                                           iconSize: 60.0,
-                                                          color:
-                                                              Colors.deepPurple,
+                                                          color: const Color(
+                                                              0xFF4527A0),
                                                         ),
                                                         const SizedBox(
                                                             height: 2.0),

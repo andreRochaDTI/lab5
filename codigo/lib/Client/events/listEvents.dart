@@ -27,7 +27,7 @@ class _ClientEventListState extends State<ClientEventList> {
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(color: Color(0xFF4527A0)),
           );
         }
         final List storedocs = [];
@@ -115,7 +115,7 @@ class _ClientEventListState extends State<ClientEventList> {
                                           height: 0.9166666667 * ffem / fem,
                                           letterSpacing: -0.4099999964 * fem,
                                           fontStyle: FontStyle.italic,
-                                          color: Colors.deepPurple,
+                                          color: const Color(0xFF4527A0),
                                         ),
                                       ),
                                     ),
@@ -153,7 +153,7 @@ class _ClientEventListState extends State<ClientEventList> {
                                           fontWeight: FontWeight.w500,
                                           height: 0.9166666667 * ffem / fem,
                                           letterSpacing: 1 * fem,
-                                          color: Colors.deepPurple,
+                                          color: const Color(0xFF4527A0),
                                         ),
                                       ),
                                     ),

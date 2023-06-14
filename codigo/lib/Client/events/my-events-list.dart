@@ -61,7 +61,7 @@ class _ClientMyEventListState extends State<ClientMyEventList> {
           AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(color: Color(0xFF4527A0)),
           );
         }
         List<Map<String, dynamic>> storedocs = snapshot.data ?? [];
@@ -144,7 +144,7 @@ class _ClientMyEventListState extends State<ClientMyEventList> {
                                           height: 0.9166666667 * ffem / fem,
                                           letterSpacing: -0.4099999964 * fem,
                                           fontStyle: FontStyle.italic,
-                                          color: Colors.deepPurple,
+                                          color: const Color(0xFF4527A0),
                                         ),
                                       ),
                                     ),
@@ -155,7 +155,7 @@ class _ClientMyEventListState extends State<ClientMyEventList> {
                                         child: Text(
                                           storedocs[i]['address'],
                                           textAlign: TextAlign.left,
-                                          maxLines: 3,
+                                          maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
                                           style: SafeGoogleFont(
                                             'Roboto',
@@ -182,7 +182,7 @@ class _ClientMyEventListState extends State<ClientMyEventList> {
                                           fontWeight: FontWeight.w500,
                                           height: 0.9166666667 * ffem / fem,
                                           letterSpacing: 1 * fem,
-                                          color: Colors.deepPurple,
+                                          color: const Color(0xFF4527A0),
                                         ),
                                       ),
                                     ),

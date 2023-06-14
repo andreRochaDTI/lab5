@@ -7,17 +7,20 @@ import 'package:geocoding/geocoding.dart';
 import 'package:myapp/Admin/events/admin-homepage.dart';
 import 'package:myapp/Admin/profile/profile.dart';
 import 'package:flutter/services.dart';
+import 'package:myapp/Client/events/client-homepage.dart';
+import 'package:myapp/Client/events/my-events.dart';
+import 'package:myapp/Client/profile/client-profile.dart';
 
-class AdminMapPage extends StatefulWidget {
+class ClientMapPage extends StatefulWidget {
   final String? targetAddress;
 
-  const AdminMapPage({Key? key, this.targetAddress}) : super(key: key);
+  const ClientMapPage({Key? key, this.targetAddress}) : super(key: key);
 
   @override
   _MapPageState createState() => _MapPageState();
 }
 
-class _MapPageState extends State<AdminMapPage> {
+class _MapPageState extends State<ClientMapPage> {
   location.LocationData? _currentLocation;
   final location.Location _location = location.Location();
   String? _targetAddress;
@@ -111,36 +114,44 @@ class _MapPageState extends State<AdminMapPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 IconButton(
-                  icon: const Icon(Icons.home, color: Color(0xFF4527A0)),
+                  icon: const Icon(Icons.home, color: const Color(0xFF4527A0)),
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AdminHomePage(),
+                        builder: (context) => ClientHomePage(),
                       ),
                     );
                   },
                 ),
                 IconButton(
-                  icon: const Icon(Icons.map, color: Color(0xFF4527A0)),
+                  icon: const Icon(Icons.map, color: const Color(0xFF4527A0)),
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const AdminMapPage(),
+                        builder: (context) => const ClientMapPage(),
                       ),
                     );
                   },
                 ),
                 IconButton(
-                  icon: const Icon(Icons.person, color: Color(0xFF4527A0)),
+                  icon:
+                      const Icon(Icons.person, color: const Color(0xFF4527A0)),
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AdminProfilePage(),
+                        builder: (context) => ClientProfilePage(),
                       ),
                     );
+                  },
+                ),
+                IconButton(
+                  icon: const Icon(Icons.event, color: const Color(0xFF4527A0)),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MyEvents()));
                   },
                 ),
               ],

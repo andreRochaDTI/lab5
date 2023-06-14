@@ -1,12 +1,14 @@
+// ignore: file_names
 import 'dart:convert';
 import 'dart:io';
-
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:myapp/Admin/events/admin-homepage.dart';
@@ -83,14 +85,33 @@ class _UpdateEventState extends State<UpdateEvent> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Error'),
-          content: Text(e.toString()),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          backgroundColor: const Color(0xFF4527A0),
+          content: const Text(
+            'CEP não encontrado.',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.w500,
+            ),
+          ),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('OK'),
+              child: const Text(
+                'OK',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ),
           ],
         ),
@@ -112,14 +133,33 @@ class _UpdateEventState extends State<UpdateEvent> {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text('Erro'),
-            content: const Text('CEP não encontrado'),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            backgroundColor: const Color(0xFF4527A0),
+            content: const Text(
+              'Falha ao buscar o endereço.',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w500,
+              ),
+            ),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text('OK'),
+                child: const Text(
+                  'OK',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
             ],
           ),
@@ -137,14 +177,29 @@ class _UpdateEventState extends State<UpdateEvent> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Erro'),
-          content: const Text('Falha ao buscar o endereço'),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          backgroundColor: const Color(0xFF4527A0),
+          content: const Text(
+            'CEP incompleto.',
+            style: TextStyle(
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
+          ),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('OK'),
+              child: const Text(
+                'OK',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ),
           ],
         ),
@@ -177,7 +232,7 @@ class _UpdateEventState extends State<UpdateEvent> {
               Icon(
                 Icons.add,
                 size: 50.0,
-                color: Colors.deepPurple,
+                color: const Color(0xFF4527A0),
               ),
             ],
           ),
@@ -233,7 +288,7 @@ class _UpdateEventState extends State<UpdateEvent> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepPurple,
+                  backgroundColor: const Color(0xFF4527A0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0),
                   ),
@@ -259,7 +314,7 @@ class _UpdateEventState extends State<UpdateEvent> {
                       padding: EdgeInsets.all(8.0),
                       child: Icon(
                         Icons.search,
-                        color: Colors.deepPurple,
+                        color: const Color(0xFF4527A0),
                       ),
                     ),
                   ),
@@ -311,7 +366,7 @@ class _UpdateEventState extends State<UpdateEvent> {
                   labelText: 'Data do evento',
                   suffixIcon: Icon(
                     Icons.calendar_today,
-                    color: Colors.deepPurple,
+                    color: const Color(0xFF4527A0),
                   ),
                 ),
               ),
@@ -337,7 +392,8 @@ class _UpdateEventState extends State<UpdateEvent> {
                 },
                 decoration: const InputDecoration(
                   labelText: 'Horário do evento',
-                  suffixIcon: Icon(Icons.access_time, color: Colors.deepPurple),
+                  suffixIcon:
+                      Icon(Icons.access_time, color: const Color(0xFF4527A0)),
                 ),
               ),
               const SizedBox(height: 32.0),
@@ -373,7 +429,7 @@ class _UpdateEventState extends State<UpdateEvent> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               IconButton(
-                icon: const Icon(Icons.home, color: Colors.deepPurple),
+                icon: const Icon(Icons.home, color: const Color(0xFF4527A0)),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -384,7 +440,7 @@ class _UpdateEventState extends State<UpdateEvent> {
                 },
               ),
               IconButton(
-                icon: const Icon(Icons.map, color: Colors.deepPurple),
+                icon: const Icon(Icons.map, color: const Color(0xFF4527A0)),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -395,7 +451,7 @@ class _UpdateEventState extends State<UpdateEvent> {
                 },
               ),
               IconButton(
-                icon: const Icon(Icons.person, color: Colors.deepPurple),
+                icon: const Icon(Icons.person, color: const Color(0xFF4527A0)),
                 onPressed: () {
                   Navigator.push(
                     context,

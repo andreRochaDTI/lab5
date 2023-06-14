@@ -31,14 +31,37 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: const Text('Sucesso'),
-                content: const Text('Senha alterada com sucesso'),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                backgroundColor: const Color(0xFF4527A0),
+                content: const Text(
+                  'Senha alterada com sucesso',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
                 actions: <Widget>[
                   ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: const Text('Retornar para página de perfil'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                    ),
+                    child: const Text(
+                      'Fechar',
+                      style: TextStyle(
+                        color: const Color(0xFF4527A0),
+                        fontSize: 20,
+                      ),
+                    ),
                   ),
                 ],
               );
@@ -62,7 +85,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Alterar Senha'),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: const Color(0xFF4527A0),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -114,7 +137,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepPurple,
+                  backgroundColor: const Color(0xFF4527A0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),

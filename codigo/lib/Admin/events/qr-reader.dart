@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class QRCodeScanner extends StatefulWidget {
   final String eventId;
@@ -166,7 +165,7 @@ class _QRCodeScannerState extends State<QRCodeScanner> {
               child: Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: Colors.deepPurple,
+                  color: const Color(0xFF4527A0),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Column(
@@ -192,8 +191,8 @@ class _QRCodeScannerState extends State<QRCodeScanner> {
                             resumeCamera();
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.white,
-                            onPrimary: Colors.deepPurple,
+                            backgroundColor: Colors.white,
+                            onPrimary: const Color(0xFF4527A0),
                             padding: const EdgeInsets.symmetric(
                               horizontal: 105,
                               vertical: 15,
@@ -211,7 +210,7 @@ class _QRCodeScannerState extends State<QRCodeScanner> {
                         Navigator.pop(context);
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.deepPurple[800],
+                        backgroundColor: const Color(0xFF4527A0),
                         padding: const EdgeInsets.symmetric(
                           horizontal: 130,
                           vertical: 15,
@@ -266,7 +265,7 @@ class _QRCodeScannerState extends State<QRCodeScanner> {
                         resumeCamera();
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.white,
+                        backgroundColor: Colors.white,
                         onPrimary: Colors.green,
                         padding: const EdgeInsets.symmetric(
                           horizontal: 105,
@@ -283,7 +282,7 @@ class _QRCodeScannerState extends State<QRCodeScanner> {
                         Navigator.pop(context);
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.deepPurple[800],
+                        backgroundColor: const Color(0xFF4527A0),
                         padding: const EdgeInsets.symmetric(
                           horizontal: 130,
                           vertical: 15,

@@ -57,13 +57,13 @@ class _SignUpState extends State<SignUp> {
                 keyboardType: TextInputType.text,
                 decoration: const InputDecoration(
                   labelText: "Nome",
-                  labelStyle: TextStyle(color: Colors.deepPurple),
+                  labelStyle: TextStyle(color: const Color(0xFF4527A0)),
                   border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.deepPurple),
+                    borderSide: BorderSide(color: const Color(0xFF4527A0)),
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.deepPurple),
+                    borderSide: BorderSide(color: const Color(0xFF4527A0)),
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                 ),
@@ -85,13 +85,13 @@ class _SignUpState extends State<SignUp> {
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                   labelText: "Email",
-                  labelStyle: TextStyle(color: Colors.deepPurple),
+                  labelStyle: TextStyle(color: const Color(0xFF4527A0)),
                   border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.deepPurple),
+                    borderSide: BorderSide(color: const Color(0xFF4527A0)),
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.deepPurple),
+                    borderSide: BorderSide(color: const Color(0xFF4527A0)),
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                 ),
@@ -116,13 +116,13 @@ class _SignUpState extends State<SignUp> {
                   obscureText: !passwordVisible,
                   decoration: InputDecoration(
                     labelText: "Senha",
-                    labelStyle: const TextStyle(color: Colors.deepPurple),
+                    labelStyle: const TextStyle(color: const Color(0xFF4527A0)),
                     border: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.deepPurple),
+                      borderSide: BorderSide(color: const Color(0xFF4527A0)),
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                     ),
                     enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.deepPurple),
+                      borderSide: BorderSide(color: const Color(0xFF4527A0)),
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                     ),
                     suffixIcon: IconButton(
@@ -130,7 +130,7 @@ class _SignUpState extends State<SignUp> {
                         passwordVisible
                             ? Icons.visibility
                             : Icons.visibility_off,
-                        color: Colors.deepPurple,
+                        color: const Color(0xFF4527A0),
                       ),
                       onPressed: () {
                         setState(() {
@@ -161,13 +161,13 @@ class _SignUpState extends State<SignUp> {
                   obscureText: !passwordVisible2,
                   decoration: InputDecoration(
                     labelText: "Confirme a senha",
-                    labelStyle: const TextStyle(color: Colors.deepPurple),
+                    labelStyle: const TextStyle(color: const Color(0xFF4527A0)),
                     border: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.deepPurple),
+                      borderSide: BorderSide(color: const Color(0xFF4527A0)),
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                     ),
                     enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.deepPurple),
+                      borderSide: BorderSide(color: const Color(0xFF4527A0)),
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                     ),
                     suffixIcon: IconButton(
@@ -175,7 +175,7 @@ class _SignUpState extends State<SignUp> {
                         passwordVisible2
                             ? Icons.visibility
                             : Icons.visibility_off,
-                        color: Colors.deepPurple,
+                        color: const Color(0xFF4527A0),
                       ),
                       onPressed: () {
                         setState(() {
@@ -200,13 +200,13 @@ class _SignUpState extends State<SignUp> {
               subtitle: DropdownButtonFormField<UserRole>(
                 decoration: const InputDecoration(
                   labelText: 'Função',
-                  labelStyle: TextStyle(color: Colors.deepPurple),
+                  labelStyle: TextStyle(color: const Color(0xFF4527A0)),
                   border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.deepPurple),
+                    borderSide: BorderSide(color: const Color(0xFF4527A0)),
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.deepPurple),
+                    borderSide: BorderSide(color: const Color(0xFF4527A0)),
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                 ),
@@ -234,7 +234,7 @@ class _SignUpState extends State<SignUp> {
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
                 gradient: LinearGradient(
-                  colors: [Colors.green, Colors.deepPurple],
+                  colors: [Colors.green, const Color(0xFF4527A0)],
                   begin: Alignment.centerLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -286,7 +286,7 @@ class _SignUpState extends State<SignUp> {
               },
               child: const Text(
                 "Entrar",
-                style: TextStyle(color: Colors.deepPurple, fontSize: 20),
+                style: TextStyle(color: const Color(0xFF4527A0), fontSize: 20),
               ),
             ),
           ],

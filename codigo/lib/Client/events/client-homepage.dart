@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/Client/events/my-events.dart';
 import 'package:myapp/Client/profile/client-profile.dart';
 import 'package:myapp/Client/events/listEvents.dart';
-import 'package:myapp/Client/utils/maps.dart';
+import 'package:myapp/Client/utils/client-maps.dart';
 import 'package:myapp/utils/utils.dart';
 
 class ClientHomePage extends StatefulWidget {
@@ -26,7 +26,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
-              icon: const Icon(Icons.home, color: Colors.deepPurple),
+              icon: const Icon(Icons.home, color: const Color(0xFF4527A0)),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -37,7 +37,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
               },
             ),
             IconButton(
-              icon: const Icon(Icons.map, color: Colors.deepPurple),
+              icon: const Icon(Icons.map, color: const Color(0xFF4527A0)),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -48,7 +48,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
               },
             ),
             IconButton(
-              icon: const Icon(Icons.person, color: Colors.deepPurple),
+              icon: const Icon(Icons.person, color: const Color(0xFF4527A0)),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -59,7 +59,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
               },
             ),
             IconButton(
-              icon: const Icon(Icons.event, color: Colors.deepPurple),
+              icon: const Icon(Icons.event, color: const Color(0xFF4527A0)),
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MyEvents()));
@@ -101,7 +101,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
                                     const EdgeInsets.symmetric(horizontal: 16),
                                 width: MediaQuery.of(context).size.width,
                                 decoration: BoxDecoration(
-                                  color: Colors.deepPurple,
+                                  color: const Color(0xFF4527A0),
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: TextField(
@@ -132,7 +132,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
                                         fontSize: 23,
                                         fontWeight: FontWeight.w400,
                                         height: 1.7,
-                                        color: Colors.deepPurple,
+                                        color: const Color(0xFF4527A0),
                                       ),
                                     ),
                                   ],

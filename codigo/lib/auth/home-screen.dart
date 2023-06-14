@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/auth/signUp.dart';
-import '../Client/events/client-homepage.dart';
 import 'about-us.dart';
 import 'package:myapp/utils/utils.dart';
 import 'package:myapp/auth/login.dart';
@@ -41,13 +39,13 @@ class Homescreen extends StatelessWidget {
                             fontWeight: FontWeight.w400,
                             height: 1.5,
                             letterSpacing: -0.4099999964,
-                            color: Colors.deepPurple,
+                            color: const Color(0xFF4527A0),
                           ),
                         ),
                       ),
                       Container(
                         decoration: BoxDecoration(
-                          color: Colors.green,
+                          color: const Color(0xFF4527A0),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: TextButton(
@@ -95,7 +93,7 @@ class Homescreen extends StatelessWidget {
                                 fontWeight: FontWeight.w700,
                                 height: 1.2,
                                 letterSpacing: -0.0099999998,
-                                color: Colors.deepPurple,
+                                color: const Color(0xFF4527A0),
                               ),
                             ),
                           ),
@@ -124,7 +122,7 @@ class Homescreen extends StatelessWidget {
                                 fontWeight: FontWeight.w700,
                                 height: 1.1,
                                 letterSpacing: -0.0099999998,
-                                color: Colors.deepPurple,
+                                color: const Color(0xFF4527A0),
                               ),
                             ),
                           ),

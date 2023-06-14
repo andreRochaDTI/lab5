@@ -30,7 +30,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
             ),
           );
         },
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: const Color(0xFF4527A0),
         child: const Icon(Icons.add),
       ),
       bottomNavigationBar: BottomAppBar(
@@ -38,7 +38,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
-              icon: const Icon(Icons.home, color: Colors.deepPurple),
+              icon: const Icon(Icons.home, color: const Color(0xFF4527A0)),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -49,7 +49,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
               },
             ),
             IconButton(
-              icon: const Icon(Icons.map, color: Colors.deepPurple),
+              icon: const Icon(Icons.map, color: const Color(0xFF4527A0)),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -60,7 +60,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
               },
             ),
             IconButton(
-              icon: const Icon(Icons.person, color: Colors.deepPurple),
+              icon: const Icon(Icons.person, color: const Color(0xFF4527A0)),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -106,7 +106,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                                     const EdgeInsets.symmetric(horizontal: 16),
                                 width: MediaQuery.of(context).size.width,
                                 decoration: BoxDecoration(
-                                  color: Colors.deepPurple,
+                                  color: const Color(0xFF4527A0),
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: TextField(
@@ -137,7 +137,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                                         fontSize: 23,
                                         fontWeight: FontWeight.w400,
                                         height: 1.7,
-                                        color: Colors.deepPurple,
+                                        color: const Color(0xFF4527A0),
                                       ),
                                     ),
                                   ],
