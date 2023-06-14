@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:myapp/Admin/events/admin-event-profile.dart';
-import 'package:myapp/Client/events/client-event-profile.dart';
 
 import 'package:myapp/utils/utils.dart' show SafeGoogleFont;
 

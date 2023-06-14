@@ -1,12 +1,13 @@
+// ignore: file_names
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:myapp/Admin/events/admin-homepage.dart';
