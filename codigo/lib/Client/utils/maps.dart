@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as location;
 import 'package:geocoding/geocoding.dart';
+import 'package:myapp/Client/events/client-homepage.dart';
+import 'package:myapp/Client/events/my-events.dart';
+import 'package:myapp/Client/profile/client-profile.dart';
 
-import '../events/homepage.dart';
-
-class MapPage extends StatefulWidget {
+class ClientMapPage extends StatefulWidget {
   final String? targetAddress;
 
-  const MapPage({Key? key, this.targetAddress}) : super(key: key);
+  const ClientMapPage({Key? key, this.targetAddress}) : super(key: key);
 
   @override
   _MapPageState createState() => _MapPageState();
 }
 
-class _MapPageState extends State<MapPage> {
+class _MapPageState extends State<ClientMapPage> {
   GoogleMapController? _mapController;
   location.LocationData? _currentLocation;
   location.Location _location = location.Location();
@@ -77,7 +78,7 @@ class _MapPageState extends State<MapPage> {
               myLocationEnabled: true,
               markers: {
                 Marker(
-                  markerId: MarkerId('destination'),
+                  markerId: const MarkerId('destination'),
                   position: LatLng(
                     _currentLocation!.latitude!,
                     _currentLocation!.longitude!,
@@ -101,7 +102,7 @@ class _MapPageState extends State<MapPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomePage(),
+                    builder: (context) => ClientHomePage(),
                   ),
                 );
               },
@@ -112,7 +113,7 @@ class _MapPageState extends State<MapPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const MapPage(),
+                    builder: (context) => const ClientMapPage(),
                   ),
                 );
               },
@@ -120,7 +121,19 @@ class _MapPageState extends State<MapPage> {
             IconButton(
               icon: const Icon(Icons.person, color: Colors.deepPurple),
               onPressed: () {
-                // Implemente a ação desejada para o perfil
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ClientProfilePage(),
+                  ),
+                );
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.event, color: Colors.deepPurple),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyEvents()));
               },
             ),
           ],

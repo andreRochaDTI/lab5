@@ -1,19 +1,24 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class QRCodeScannerPage extends StatefulWidget {
+class QRCodeScanner extends StatefulWidget {
+  final String eventId;
+
+  QRCodeScanner({required this.eventId});
+
   @override
-  _QRCodeScannerPageState createState() => _QRCodeScannerPageState();
+  _QRCodeScannerState createState() => _QRCodeScannerState();
 }
 
-class _QRCodeScannerPageState extends State<QRCodeScannerPage> {
+class _QRCodeScannerState extends State<QRCodeScanner> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   QRViewController? controller;
   bool showErrorMessage = false;
   Timer? timer;
-
+  String? qrCodeContent;
   bool showValidMessage = false;
 
   @override
@@ -23,33 +28,44 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage> {
     super.dispose();
   }
 
+  Future<void> validateQRCode(String code) async {
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+    QuerySnapshot<Object?> snapshot = await users.get();
+
+    for (QueryDocumentSnapshot<Object?> document in snapshot.docs) {
+      String userId = document.id;
+
+      DocumentSnapshot<Object?> qrCodeSnapshot = await users
+          .doc(userId)
+          .collection('qr_codes')
+          .doc(widget.eventId)
+          .get();
+
+      if (qrCodeSnapshot.exists && qrCodeSnapshot['qrCodeId'] == code) {
+        setState(() {
+          showMessageValid();
+          qrCodeContent = code;
+        });
+        return;
+      }
+    }
+
+    showMessageError();
+  }
+
   void _onQRViewCreated(QRViewController controller) {
     setState(() {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((scanData) {
-      if (scanData.code != null && !showValidMessage) {
-        setState(() {
-          showValidMessage = true;
-        });
-        if (scanData.code!.toUpperCase() == 'VÁLIDO') {
-          print('QR Code válido: ${scanData.code}');
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text(
-                'QR Code válido',
-                style: TextStyle(color: Colors.white),
-              ),
-              backgroundColor: Colors.green,
-            ),
-          );
-        }
+      if (!showValidMessage && scanData.code != null) {
+        validateQRCode(scanData.code!);
       }
     });
   }
 
   void startTimer() {
-    timer = Timer(const Duration(seconds: 20), () {
+    timer = Timer(const Duration(seconds: 15), () {
       setState(() {
         showErrorMessage = true;
       });
@@ -65,6 +81,22 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage> {
   void resumeCamera() {
     controller?.resumeCamera();
     startTimer();
+  }
+
+  void showMessageValid() {
+    setState(() {
+      showValidMessage = true;
+    });
+
+    pauseCamera();
+  }
+
+  void showMessageError() {
+    setState(() {
+      showErrorMessage = true;
+    });
+
+    pauseCamera();
   }
 
   @override
@@ -189,6 +221,78 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage> {
                         ),
                       ),
                       child: const Text('Cancelar'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          if (showValidMessage)
+            Positioned(
+              left: 20,
+              right: 20,
+              bottom: 20,
+              child: Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      'QR Code válido.',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      'Conteúdo do QR Code: $qrCodeContent',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          showValidMessage = false;
+                        });
+                        resumeCamera();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.white,
+                        onPrimary: Colors.green,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 105,
+                          vertical: 15,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      child: const Text('Ler outro QR Code'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.deepPurple[800],
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 130,
+                          vertical: 15,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      child: const Text('Sair'),
                     ),
                   ],
                 ),

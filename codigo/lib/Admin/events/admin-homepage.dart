@@ -1,25 +1,20 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/auth/login.dart';
-import 'package:myapp/events/addEvent.dart';
-import 'package:myapp/events/listEvents.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:myapp/page-3/maps.dart';
-import 'package:myapp/profile/profile.dart';
-import 'package:myapp/utils.dart';
+import 'package:myapp/Admin/events/addEvent.dart';
+import 'package:myapp/Admin/events/admin-list-events.dart';
+import 'package:myapp/Admin/profile/profile.dart';
+import '../utils/admin-maps.dart';
+import '../../utils/utils.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+class AdminHomePage extends StatefulWidget {
+  AdminHomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _AdminHomePageState createState() => _AdminHomePageState();
 }
 
 final TextEditingController _searchController = TextEditingController();
 
-class _HomePageState extends State<HomePage> {
+class _AdminHomePageState extends State<AdminHomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -48,7 +43,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomePage(),
+                    builder: (context) => AdminHomePage(),
                   ),
                 );
               },
@@ -59,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const MapPage(),
+                    builder: (context) => AdminMapPage(),
                   ),
                 );
               },
@@ -70,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ProfilePage(),
+                    builder: (context) => AdminProfilePage(),
                   ),
                 );
               },
@@ -156,8 +151,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              const Divider(),
-              const ListEvents(),
+              const AdminEventsList(),
             ],
           ),
         ),

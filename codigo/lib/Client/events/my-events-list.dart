@@ -1,32 +1,64 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:myapp/main.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:myapp/Client/events/client-event-profile.dart';
+import 'package:myapp/utils/utils.dart' show SafeGoogleFont;
 
-import 'package:myapp/utils.dart' show SafeGoogleFont;
-
-class ListEvents extends StatefulWidget {
-  const ListEvents({Key? key}) : super(key: key);
+class ClientMyEventList extends StatefulWidget {
+  const ClientMyEventList({Key? key}) : super(key: key);
 
   @override
-  _EventListState createState() => _EventListState();
+  _ClientMyEventListState createState() => _ClientMyEventListState();
 }
 
-class _EventListState extends State<ListEvents> {
-  final Stream<QuerySnapshot> studentsStream =
-      FirebaseFirestore.instance.collection('events').snapshots();
+late final String eventId;
+
+class _ClientMyEventListState extends State<ClientMyEventList> {
+  Future<List<Map<String, dynamic>>> getMyEvents() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      return [];
+    }
+
+    String userId = user.uid;
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('comprados')
+        .get();
+
+    List<String> myEvents = [];
+    querySnapshot.docs.forEach((document) {
+      myEvents.add(document.id);
+    });
+
+    List<Map<String, dynamic>> storedocs = [];
+    for (var i = 0; i < myEvents.length; i++) {
+      DocumentSnapshot eventSnapshot = await FirebaseFirestore.instance
+          .collection('events')
+          .doc(myEvents[i])
+          .get();
+
+      if (eventSnapshot.exists) {
+        Map<String, dynamic> eventData =
+            eventSnapshot.data() as Map<String, dynamic>;
+        eventData['id'] = myEvents[i];
+        storedocs.add(eventData);
+      }
+    }
+
+    return storedocs;
+  }
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic>? deletedEvent;
-
     double baseWidth = 414;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
-    return StreamBuilder<QuerySnapshot>(
-      stream: studentsStream,
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: getMyEvents(),
+      builder: (BuildContext context,
+          AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
         if (snapshot.hasError) {
           print('Something went wrong');
         }
@@ -35,12 +67,7 @@ class _EventListState extends State<ListEvents> {
             child: CircularProgressIndicator(),
           );
         }
-        final List storedocs = [];
-        snapshot.data!.docs.map((DocumentSnapshot document) {
-          Map item = document.data() as Map<String, dynamic>;
-          storedocs.add(item);
-          item['id'] = document.id;
-        }).toList();
+        List<Map<String, dynamic>> storedocs = snapshot.data ?? [];
 
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
@@ -61,7 +88,7 @@ class _EventListState extends State<ListEvents> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => EventP(
+                            builder: (context) => ClientEventProfile(
                               id: storedocs[i]['id'],
                               indice: i,
                               storedocs: storedocs,
@@ -114,7 +141,7 @@ class _EventListState extends State<ListEvents> {
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         style: SafeGoogleFont(
-                                          'Montserrat',
+                                          'Roboto',
                                           fontSize: 24 * ffem,
                                           fontWeight: FontWeight.w700,
                                           height: 0.9166666667 * ffem / fem,
@@ -134,7 +161,7 @@ class _EventListState extends State<ListEvents> {
                                           maxLines: 3,
                                           overflow: TextOverflow.ellipsis,
                                           style: SafeGoogleFont(
-                                            'Montserrat',
+                                            'Roboto',
                                             fontSize: 15 * ffem,
                                             fontWeight: FontWeight.w500,
                                             height: 1.375 * ffem / fem,
@@ -153,7 +180,7 @@ class _EventListState extends State<ListEvents> {
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: SafeGoogleFont(
-                                          'Montserrat',
+                                          'Roboto',
                                           fontSize: 15,
                                           fontWeight: FontWeight.w500,
                                           height: 0.9166666667 * ffem / fem,
