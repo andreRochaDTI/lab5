@@ -103,7 +103,6 @@ class _AddEventState extends State<AddEvent> {
 
       final imageUrl = await ref.getDownloadURL();
 
-      // Save the event to Firestore
       final event = {
         'name': _nameController.text,
         'address': _addressController.text,
@@ -168,7 +167,7 @@ class _AddEventState extends State<AddEvent> {
           color: Colors.grey.withOpacity(0.3),
           child: Stack(
             alignment: Alignment.center,
-            children: [
+            children: const [
               Icon(
                 Icons.add,
                 size: 50.0,
@@ -317,7 +316,7 @@ class _AddEventState extends State<AddEvent> {
                 DatePicker.showTimePicker(
                   context,
                   showTitleActions: true,
-                  showSecondsColumn: false, // Remove a coluna de segundos
+                  showSecondsColumn: false,
                   onChanged: (time) {},
                   onConfirm: (time) {
                     final formattedTime = DateFormat('HH:mm').format(time);

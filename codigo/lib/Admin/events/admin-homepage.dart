@@ -133,7 +133,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                                       'Eventos cadastrados: ',
                                       textAlign: TextAlign.center,
                                       style: SafeGoogleFont(
-                                        'Montserrat',
+                                        'Roboto',
                                         fontSize: 23,
                                         fontWeight: FontWeight.w400,
                                         height: 1.7,

@@ -59,9 +59,6 @@ class _ClientMyEventListState extends State<ClientMyEventList> {
       future: getMyEvents(),
       builder: (BuildContext context,
           AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
-        if (snapshot.hasError) {
-          print('Something went wrong');
-        }
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
             child: CircularProgressIndicator(),

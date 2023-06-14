@@ -47,8 +47,8 @@ class AdminEventProfile extends StatelessWidget {
             return events
                 .doc(id)
                 .delete()
-                .then((value) => print('Event Deleted'))
-                .catchError((error) => print('Failed to Delete event: $error'));
+                .then((value) {})
+                .catchError((error) {});
           }
 
           Map<String, dynamic>? deletedEvent;
@@ -89,7 +89,7 @@ class AdminEventProfile extends StatelessWidget {
                                         child: Text(
                                           eventData['name'] ?? '',
                                           style: SafeGoogleFont(
-                                            'Montserrat',
+                                            'Roboto',
                                             fontSize: 22,
                                             fontWeight: FontWeight.w700,
                                             height: 1,
@@ -228,7 +228,7 @@ class AdminEventProfile extends StatelessWidget {
                                 Text(
                                   'Informações:',
                                   style: SafeGoogleFont(
-                                    'Montserrat',
+                                    'Roboto',
                                     fontSize: 22,
                                     fontWeight: FontWeight.w700,
                                     height: 1,
@@ -251,7 +251,7 @@ class AdminEventProfile extends StatelessWidget {
                                     Text(
                                       'Data:',
                                       style: SafeGoogleFont(
-                                        'Montserrat',
+                                        'Roboto',
                                         fontSize: 20,
                                         fontWeight: FontWeight.w700,
                                         height: 1.5,
@@ -262,7 +262,7 @@ class AdminEventProfile extends StatelessWidget {
                                     Text(
                                       eventData['date'] ?? '',
                                       style: SafeGoogleFont(
-                                        'Montserrat',
+                                        'Roboto',
                                         fontSize: 18,
                                         fontWeight: FontWeight.w500,
                                         height: 1.5,
@@ -287,7 +287,7 @@ class AdminEventProfile extends StatelessWidget {
                                       child: Text(
                                         'Hora: ',
                                         style: SafeGoogleFont(
-                                          'Montserrat',
+                                          'Roboto',
                                           fontSize: 20,
                                           fontWeight: FontWeight.w700,
                                           height: 1.5,
@@ -300,7 +300,7 @@ class AdminEventProfile extends StatelessWidget {
                                       child: Text(
                                         eventData['time'] ?? '',
                                         style: SafeGoogleFont(
-                                          'Montserrat',
+                                          'Roboto',
                                           fontSize: 18,
                                           fontWeight: FontWeight.w500,
                                           height: 1.5,
@@ -327,7 +327,7 @@ class AdminEventProfile extends StatelessWidget {
                                         Text(
                                           'Endereço: ',
                                           style: SafeGoogleFont(
-                                            'Montserrat',
+                                            'Roboto',
                                             fontSize: 20,
                                             fontWeight: FontWeight.w700,
                                             height: 1.5,
@@ -341,7 +341,7 @@ class AdminEventProfile extends StatelessWidget {
                                     Text(
                                       '${eventData['address'].split(',')[0].trim()} ${eventData['addressNumber']} ${eventData['address'].split(',')[1].trim()} ${eventData['address'].split(',')[2].trim()} ${eventData['address'].split(',')[3].trim()}',
                                       style: SafeGoogleFont(
-                                        'Montserrat',
+                                        'Roboto',
                                         fontSize: 18,
                                         fontWeight: FontWeight.w500,
                                         height: 1.5,
@@ -361,7 +361,7 @@ class AdminEventProfile extends StatelessWidget {
                                         child: Text(
                                           'Situação do evento:',
                                           style: SafeGoogleFont(
-                                            'Montserrat',
+                                            'Roboto',
                                             fontSize: 20,
                                             fontWeight: FontWeight.w700,
                                             height: 1,
@@ -373,7 +373,7 @@ class AdminEventProfile extends StatelessWidget {
                                     Text(
                                       'Disponível',
                                       style: SafeGoogleFont(
-                                        'Montserrat',
+                                        'Roboto',
                                         fontSize: 20,
                                         fontWeight: FontWeight.w500,
                                         height: 1,
@@ -393,7 +393,7 @@ class AdminEventProfile extends StatelessWidget {
                                         'O QR Code lido perderá o valor após ser validado.',
                                         textAlign: TextAlign.center,
                                         style: SafeGoogleFont(
-                                          'Montserrat',
+                                          'Roboto',
                                           fontSize: 13,
                                           fontWeight: FontWeight.w400,
                                           height: 1.5,

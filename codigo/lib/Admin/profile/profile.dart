@@ -141,9 +141,7 @@ class AdminProfilePage extends StatelessWidget {
                 ),
                 const SizedBox(height: 10.0),
                 TextButton(
-                  onPressed: () {
-                    // Ação do container clicado
-                  },
+                  onPressed: () {},
                   child: SizedBox(
                     width: double.infinity,
                     child: Row(
