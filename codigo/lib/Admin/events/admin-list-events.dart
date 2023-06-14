@@ -113,8 +113,6 @@ class _AdminEventsListState extends State<AdminEventsList> {
                                           'Roboto',
                                           fontSize: 24 * ffem,
                                           fontWeight: FontWeight.w700,
-                                          height: 0.9166666667 * ffem / fem,
-                                          letterSpacing: -0.4099999964 * fem,
                                           fontStyle: FontStyle.italic,
                                           color: Colors.deepPurple,
                                         ),

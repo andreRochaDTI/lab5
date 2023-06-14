@@ -126,7 +126,7 @@ class _ClientEventListState extends State<ClientEventList> {
                                         child: Text(
                                           storedocs[i]['address'],
                                           textAlign: TextAlign.left,
-                                          maxLines: 3,
+                                          maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
                                           style: SafeGoogleFont(
                                             'Roboto',
